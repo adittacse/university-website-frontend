@@ -12,6 +12,9 @@ export default function Sidebar() {
                     <Link href="/dashboard">Overview</Link>
                 </li>
                 <li>
+                    <Link href="/dashboard/notices">All Notice</Link>
+                </li>
+                <li>
                     <Link href="/dashboard/upload-notice">
                         Upload Notice
                     </Link>

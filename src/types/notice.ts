@@ -2,9 +2,24 @@ export type Notice = {
     _id: string;
     title: string;
     description?: string;
-    createdAt: string;
+    categories: {
+        _id: string;
+        name: string;
+    }[];
+    allowedRoles: {
+        _id: string;
+        name: string;
+    }[];
+    file?: {
+        filename: string;
+        path: string;
+        mimetype: string;
+        size: number;
+    };
     viewCount: number;
     downloadCount: number;
+    isDeleted: boolean;
+    createdAt: string;
 };
 
 export interface NoticesResponse {
