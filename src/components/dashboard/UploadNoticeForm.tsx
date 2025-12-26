@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { buildIndentedCategories } from "@/utils/categoryTree";
 import api from "@/lib/axios";
 import Swal from "sweetalert2";
 
@@ -48,6 +49,8 @@ export default function UploadNoticeForm() {
 
         fetchData();
     }, []);
+
+    const indentedCategories = buildIndentedCategories(categories);
 
     /* ================= GENERAL CATEGORY LOGIC ================= */
     const generalCategoryId = categories.find(
@@ -184,28 +187,35 @@ export default function UploadNoticeForm() {
                         <h2 className="font-semibold">Categories</h2>
 
                         <div className="max-h-52 overflow-y-auto space-y-2">
-                            {categories.map((cat) => (
+                            {indentedCategories.map((cat: any) => (
                                 <label
                                     key={cat._id}
-                                    className="flex items-center gap-2 text-sm"
+                                    className="flex items-start gap-2 text-sm"
+                                    style={{
+                                        paddingLeft: `${cat._depth * 16}px`,
+                                    }}
                                 >
                                     <input
                                         type="checkbox"
-                                        className="checkbox checkbox-sm"
-                                        checked={selectedCategories.includes(
-                                            cat._id
-                                        )}
+                                        className="checkbox checkbox-sm mt-0.5"
+                                        checked={selectedCategories.includes(cat._id)}
                                         onChange={() =>
                                             setSelectedCategories((prev) =>
                                                 prev.includes(cat._id)
-                                                    ? prev.filter(
-                                                        (id) => id !== cat._id
-                                                    )
+                                                    ? prev.filter((id) => id !== cat._id)
                                                     : [...prev, cat._id]
                                             )
                                         }
                                     />
-                                    {cat.name}
+
+                                    <span>
+                                        {cat._depth > 0 && (
+                                            <span className="opacity-70">
+                                                {"— ".repeat(cat._depth)}
+                                            </span>
+                                        )}
+                                        {cat.name}
+                                    </span>
                                 </label>
                             ))}
                         </div>

@@ -9,6 +9,9 @@ export default function Sidebar() {
 
             <ul className="menu menu-sm">
                 <li>
+                    <Link href="/">Home Page</Link>
+                </li>
+                <li>
                     <Link href="/dashboard">Overview</Link>
                 </li>
                 <li>
@@ -20,7 +23,7 @@ export default function Sidebar() {
                     </Link>
                 </li>
                 <li>
-                    <Link href="/dashboard/categories">Categories</Link>
+                    <Link href="/dashboard/categories">Manage Categories</Link>
                 </li>
                 <li>
                     <Link href="/dashboard/users">Users</Link>
