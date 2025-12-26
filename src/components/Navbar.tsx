@@ -1,34 +1,65 @@
 "use client";
 
 import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import api from "@/lib/axios";
 
 export default function Navbar() {
-    const { data: session } = useSession();
+    const [user, setUser] = useState<any>(null);
+
+    useEffect(() => {
+        api.get("/auth/me")
+            .then((res) => setUser(res.data))
+            .catch(() => setUser(null));
+    }, []);
+
+    const logout = async () => {
+        await api.post("/auth/logout");
+        location.href = "/";
+    };
 
     return (
         <div className="navbar bg-base-100 shadow">
             <div className="flex-1">
-                <Link href="/public" className="btn btn-ghost text-xl">
+                <Link href="/" className="btn btn-ghost text-xl">
                     University
                 </Link>
             </div>
 
             <div className="flex-none gap-2">
-                {
-                    session ? (
-                        <>
-                            <span className="text-sm">{session.user?.email}</span>
-                            <button className="btn btn-error btn-sm" onClick={() => signOut()}>
-                                Logout
-                            </button>
-                        </>
-                    ) : (
-                        <button className="btn btn-primary btn-sm" onClick={() => signIn("google")}>
-                            Login with Google
+                {user ? (
+                    <>
+                        <Link
+                            href="/dashboard/upload-notice"
+                            className="btn btn-sm"
+                        >
+                            Dashboard
+                        </Link>
+
+                        <button
+                            className="btn btn-sm btn-outline"
+                            onClick={logout}
+                        >
+                            Logout
                         </button>
-                    )
-                }
+                    </>
+                ) : (
+                    <>
+                        <Link
+                            href="/login"
+                            className="btn btn-sm btn-primary"
+                        >
+                            Login
+                        </Link>
+
+                        <Link
+                            href="/register"
+                            className="btn btn-sm btn-outline"
+                        >
+                            Register
+                        </Link>
+                    </>
+                )}
             </div>
         </div>
     );
