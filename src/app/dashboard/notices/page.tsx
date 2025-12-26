@@ -192,14 +192,16 @@ export default function AdminNoticesPage() {
                             }}
                         />
                     </th>
+                    <th>SL.</th>
                     <th>Title</th>
                     <th>Categories</th>
                     <th>Date</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
 
                 <tbody>
-                {data?.data?.map((n: any) => (
+                {data?.data?.map((n: any, index) => (
                     <tr key={n._id}>
                         <td>
                             <input
@@ -214,42 +216,46 @@ export default function AdminNoticesPage() {
                                 }}
                             />
                         </td>
+                        <td>{index + 1}</td>
 
                         <td>
                             <div className="group">
                                 <span className="font-medium">{n.title}</span>
 
                                 <div className="text-sm text-blue-600 opacity-0 group-hover:opacity-100 flex gap-2 mt-1">
-                                    {!isDeleted && (
-                                        <button className="cursor-pointer"
-                                            onClick={() => softDeleteNotice(n._id).then(loadData)}
-                                        >
-                                            Trash
-                                        </button>
-                                    )}
 
-                                    {isDeleted && (
-                                        <>
-                                            <button className="cursor-pointer"
-                                                onClick={() => handleRestore(n._id)}
-                                            >
-                                                Restore
-                                            </button>
-                                            <button className="cursor-pointer text-red-600"
-                                                onClick={() =>
-                                                    permanentDeleteNotices([n._id]).then(loadData)
-                                                }
-                                            >
-                                                Delete Permanently
-                                            </button>
-                                        </>
-                                    )}
                                 </div>
                             </div>
                         </td>
 
                         <td>{n.categories.map((c: any) => c.name).join(", ")}</td>
                         <td>{new Date(n.createdAt).toLocaleDateString()}</td>
+                        <td>
+                            {!isDeleted && (
+                                <button className="btn btn-primary btn-sm"
+                                        onClick={() => softDeleteNotice(n._id).then(loadData)}
+                                >
+                                    Trash
+                                </button>
+                            )}
+
+                            {isDeleted && (
+                                <div className="flex items-center gap-5">
+                                    <button className="btn btn-sm btn-primary"
+                                            onClick={() => handleRestore(n._id)}
+                                    >
+                                        Restore
+                                    </button>
+                                    <button className="btn btn-sm btn-error"
+                                            onClick={() =>
+                                                permanentDeleteNotices([n._id]).then(loadData)
+                                            }
+                                    >
+                                        Delete Permanently
+                                    </button>
+                                </div>
+                            )}
+                        </td>
                     </tr>
                 ))}
                 </tbody>

@@ -96,6 +96,7 @@ export default function AdminCategoriesPage() {
                                 </th>
                                 <th>Name</th>
                                 <th>Parent</th>
+                                <th>Actions</th>
                             </tr>
                             </thead>
 
@@ -118,7 +119,7 @@ export default function AdminCategoriesPage() {
                                         />
                                     </td>
 
-                                    <td className="group">
+                                    <td>
                                     <span
                                         className="font-medium text-blue-600 cursor-pointer"
                                         style={{paddingLeft: `${(cat as any)._depth * 16}px`}}
@@ -128,24 +129,27 @@ export default function AdminCategoriesPage() {
                                     </span>
 
                                         <div className="text-sm opacity-0 group-hover:opacity-100 flex gap-2 mt-1">
-                                            <button
-                                                className="text-blue-600 cursor-pointer"
-                                                onClick={() => setEditingCategory(cat)}
-                                            >
-                                                Edit
-                                            </button>
-                                            <button
-                                                className="text-red-600 cursor-pointer"
-                                                onClick={() =>
-                                                    deleteCategory(cat._id).then(loadData)
-                                                }
-                                            >
-                                                Delete
-                                            </button>
+
                                         </div>
                                     </td>
 
                                     <td>{cat?.parent?.name}</td>
+                                    <td className="flex items-center gap-5">
+                                        <button
+                                            className="btn btn-sm btn-primary"
+                                            onClick={() => setEditingCategory(cat)}
+                                        >
+                                            Edit
+                                        </button>
+                                        <button
+                                            className="btn btn-sm btn-error"
+                                            onClick={() =>
+                                                deleteCategory(cat._id).then(loadData)
+                                            }
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
                                 </tr>
                             ))}
                             </tbody>

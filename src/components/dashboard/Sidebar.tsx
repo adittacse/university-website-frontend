@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Sidebar() {
     return (
-        <aside className="w-64 bg-base-100 min-h-screen border-r hidden md:block p-4">
+        <aside className="w-64 bg-base-300 min-h-screen hidden md:block p-4">
             <h2 className="font-bold text-lg mb-4">Dashboard</h2>
 
             <nav>

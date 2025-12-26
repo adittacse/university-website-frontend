@@ -80,6 +80,7 @@ export default function AdminRolesPage() {
                                 />
                             </th>
                             <th>Name</th>
+                            <th>Actions</th>
                         </tr>
                         </thead>
 
@@ -100,27 +101,24 @@ export default function AdminRolesPage() {
                                     />
                                 </td>
 
-                                <td className="group">
-                                    <span className="font-medium text-blue-600 cursor-pointer capitalize">
-                                        {role.name}
-                                    </span>
-
-                                    <div className="text-sm opacity-0 group-hover:opacity-100 flex gap-2 mt-1">
-                                        <button
-                                            className="text-blue-600 cursor-pointer"
-                                            onClick={() => setEditingRole(role)}
-                                        >
-                                            Edit
-                                        </button>
-                                        <button
-                                            className="text-red-600 cursor-pointer"
-                                            onClick={() =>
-                                                deleteRole(role._id).then(loadData)
-                                            }
-                                        >
-                                            Delete
-                                        </button>
-                                    </div>
+                                <td>
+                                    <p className="capitalize font-medium">{role.name}</p>
+                                </td>
+                                <td className="flex items-center gap-5">
+                                    <button
+                                        className="btn btn-sm btn-primary"
+                                        onClick={() => setEditingRole(role)}
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        className="btn btn-sm btn-error"
+                                        onClick={() =>
+                                            deleteRole(role._id).then(loadData)
+                                        }
+                                    >
+                                        Delete
+                                    </button>
                                 </td>
                             </tr>
                         ))}
