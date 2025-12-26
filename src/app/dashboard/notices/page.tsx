@@ -10,6 +10,8 @@ import {
     bulkRestoreNotice,
     permanentDeleteNotices,
 } from "@/services/adminNotice.service";
+import Link from "next/link";
+import Swal from "sweetalert2";
 
 export default function AdminNoticesPage() {
     const [page, setPage] = useState(1);
@@ -195,7 +197,9 @@ export default function AdminNoticesPage() {
                     <th>SL.</th>
                     <th>Title</th>
                     <th>Categories</th>
-                    <th>Date</th>
+                    <th>Author</th>
+                    <th>Created Date</th>
+                    <th>Updated Date</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -229,11 +233,42 @@ export default function AdminNoticesPage() {
                         </td>
 
                         <td>{n.categories.map((c: any) => c.name).join(", ")}</td>
-                        <td>{new Date(n.createdAt).toLocaleDateString()}</td>
-                        <td>
+                        <td>{n?.createdBy?.name}</td>
+                        <td>{new Date(n.createdAt).toLocaleString()}</td>
+                        <td>{new Date(n.updatedAt).toLocaleString()}</td>
+                        <td className="flex items-center gap-5">
+                            <Link className="btn btn-secondary btn-sm"
+                                    href={`/notices/${n._id}`}
+                            >
+                                View
+                            </Link>
+
                             {!isDeleted && (
-                                <button className="btn btn-primary btn-sm"
-                                        onClick={() => softDeleteNotice(n._id).then(loadData)}
+                                <button
+                                    className="btn btn-primary btn-sm"
+                                    onClick={async () => {
+                                        const result = await Swal.fire({
+                                            title: "Are you sure?",
+                                            text: "You will be able to restore this from Trash!",
+                                            icon: "warning",
+                                            showCancelButton: true,
+                                            confirmButtonText: "Yes, move to Trash",
+                                        });
+
+                                        if (!result.isConfirmed) return;
+
+                                        await softDeleteNotice(n._id);
+
+                                        await Swal.fire({
+                                            icon: "success",
+                                            title: "Moved to Trash",
+                                            timer: 1200,
+                                            showConfirmButton: false,
+                                        });
+
+                                        await loadData();
+                                        await getNoticeCounts();
+                                    }}
                                 >
                                     Trash
                                 </button>

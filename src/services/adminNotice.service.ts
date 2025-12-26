@@ -19,24 +19,7 @@ export const getNoticeCounts = async () => {
 };
 
 export const softDeleteNotice = async (id: string) => {
-    Swal.fire({
-        title: "Are you sure?",
-        text: "You will able to revert this from Trash!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, move to trash."
-    }).then((result) => {
-        if (result.isConfirmed) {
-            Swal.fire({
-                title: "Deleted!",
-                text: "Notice has been moved to Trash.",
-                icon: "success"
-            });
-            return api.delete(`/notices/${id}`);
-        }
-    });
+    return api.delete(`/notices/${id}`);
 };
 
 // single restore

@@ -133,6 +133,7 @@ export default function UploadNoticeForm() {
         >
             {/* ================= LEFT / MAIN ================= */}
             <div className="lg:col-span-2 space-y-4">
+                <h1 className="text-2xl font-bold mb-4">Upload Notice</h1>
                 <div className="card bg-base-100 border shadow-sm">
                     <div className="card-body space-y-4">
                         <h2 className="text-lg font-semibold">
