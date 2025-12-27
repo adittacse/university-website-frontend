@@ -35,15 +35,15 @@ export default function AdminRolesPage() {
 
     return (
         <DashboardLayout>
-            <h1 className="text-2xl font-bold mb-4">Roles</h1>
+            <h1 className="text-2xl font-bold mb-10">Roles</h1>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 items-start gap-10">
                 {/* LEFT */}
                 <RoleForm onCreated={loadData} />
 
                 {/* RIGHT */}
                 <div className="md:col-span-2">
-                    <div className="flex justify-between mb-3">
+                    <div className="flex justify-between mb-5">
                         <div className="flex gap-2">
                             <select
                                 className="select select-sm select-bordered"
@@ -54,76 +54,78 @@ export default function AdminRolesPage() {
                                 <option>Bulk actions</option>
                                 <option value="delete">Delete</option>
                             </select>
-                            <button className="btn btn-sm">Apply</button>
+                            <button className="btn btn-sm btn-warning">Apply</button>
                         </div>
 
                         <input
                             type="text"
-                            placeholder="Search roles"
+                            placeholder="Search role"
                             className="input input-sm input-bordered"
                             value={search}
                             onChange={e => setSearch(e.target.value)}
                         />
                     </div>
 
-                    <table className="table table-zebra w-full">
-                        <thead>
-                        <tr>
-                            <th>
-                                <input
-                                    type="checkbox"
-                                    checked={
-                                        roles.length > 0 &&
-                                        selectedIds.length === roles.length
-                                    }
-                                    onChange={e => toggleAll(e.target.checked)}
-                                />
-                            </th>
-                            <th>Name</th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
+                    <div className="overflow-x-auto bg-base-100 shadow-2xl rounded-2xl">
+                        <table className="table table-zebra w-full">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <input
+                                            type="checkbox"
+                                            checked={
+                                                roles.length > 0 &&
+                                                selectedIds.length === roles.length
+                                            }
+                                            onChange={e => toggleAll(e.target.checked)}
+                                        />
+                                    </th>
+                                    <th>Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
 
-                        <tbody>
-                        {roles.map(role => (
-                            <tr key={role._id}>
-                                <td>
-                                    <input
-                                        type="checkbox"
-                                        checked={selectedIds.includes(role._id)}
-                                        onChange={e =>
-                                            setSelectedIds(prev =>
-                                                e.target.checked
-                                                    ? [...prev, role._id]
-                                                    : prev.filter(id => id !== role._id)
-                                            )
-                                        }
-                                    />
-                                </td>
+                            <tbody>
+                            {roles.map(role => (
+                                <tr key={role._id}>
+                                    <td>
+                                        <input
+                                            type="checkbox"
+                                            checked={selectedIds.includes(role._id)}
+                                            onChange={e =>
+                                                setSelectedIds(prev =>
+                                                    e.target.checked
+                                                        ? [...prev, role._id]
+                                                        : prev.filter(id => id !== role._id)
+                                                )
+                                            }
+                                        />
+                                    </td>
 
-                                <td>
-                                    <p className="capitalize font-medium">{role.name}</p>
-                                </td>
-                                <td className="flex items-center gap-5">
-                                    <button
-                                        className="btn btn-sm btn-primary"
-                                        onClick={() => setEditingRole(role)}
-                                    >
-                                        Edit
-                                    </button>
-                                    <button
-                                        className="btn btn-sm btn-error"
-                                        onClick={() =>
-                                            deleteRole(role._id).then(loadData)
-                                        }
-                                    >
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                        </tbody>
-                    </table>
+                                    <td>
+                                        <p className="capitalize font-medium">{role.name}</p>
+                                    </td>
+                                    <td className="flex items-center gap-5">
+                                        <button
+                                            className="btn btn-sm btn-primary"
+                                            onClick={() => setEditingRole(role)}
+                                        >
+                                            Edit
+                                        </button>
+                                        <button
+                                            className="btn btn-sm btn-error"
+                                            onClick={() =>
+                                                deleteRole(role._id).then(loadData)
+                                            }
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    </div>
 
                     {roles.length === 0 && (
                         <div className="text-center text-gray-500 py-6">

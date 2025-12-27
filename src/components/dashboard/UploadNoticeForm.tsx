@@ -62,8 +62,16 @@ export default function UploadNoticeForm() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (!title || !file || selectedCategories.length === 0) {
-            await Swal.fire("Error", "Title, Category & File are required", "error");
+        if (!title) {
+            await Swal.fire("Error", "Title required", "error");
+            return;
+        }
+        if (!file) {
+            await Swal.fire("Error", "File required", "error");
+            return;
+        }
+        if (selectedCategories.length === 0) {
+            await Swal.fire("Error", "Category required", "error");
             return;
         }
 
@@ -130,8 +138,9 @@ export default function UploadNoticeForm() {
         >
             {/* ================= LEFT / MAIN ================= */}
             <div className="lg:col-span-2 space-y-4">
-                <h1 className="text-2xl font-bold mb-4">Upload Notice</h1>
-                <div className="card bg-base-100 border shadow-sm">
+                <h1 className="text-2xl font-bold mb-10">Upload Notice</h1>
+
+                <div className="card bg-base-100 shadow-2xl rounded-2xl">
                     <div className="card-body space-y-4">
                         <h2 className="text-lg font-semibold">
                             Notice Details
@@ -154,12 +163,21 @@ export default function UploadNoticeForm() {
                         />
                     </div>
                 </div>
+
+                {/* SUBMIT */}
+                <button
+                    type="submit"
+                    className="btn btn-primary w-full mt-5"
+                    disabled={loading}
+                >
+                    {loading ? "Uploading..." : "Publish Notice"}
+                </button>
             </div>
 
             {/* ================= RIGHT SIDEBAR ================= */}
             <div className="space-y-4">
                 {/* FILE */}
-                <div className="card bg-base-100 border shadow-sm">
+                <div className="card bg-base-100 shadow-2xl rounded-2xl">
                     <div className="card-body space-y-3">
                         <h2 className="font-semibold">Attach File</h2>
 
@@ -180,7 +198,7 @@ export default function UploadNoticeForm() {
                 </div>
 
                 {/* CATEGORIES */}
-                <div className="card bg-base-100 border shadow-sm">
+                <div className="card bg-base-100 shadow-2xl rounded-2xl">
                     <div className="card-body space-y-2">
                         <h2 className="font-semibold">Categories</h2>
 
@@ -221,7 +239,7 @@ export default function UploadNoticeForm() {
                 </div>
 
                 {/* ROLES */}
-                <div className="card bg-base-100 border shadow-sm">
+                <div className="card bg-base-100 shadow-2xl rounded-2xl">
                     <div className="card-body space-y-2">
                         <h2 className="font-semibold">Allowed Roles</h2>
 
@@ -261,15 +279,6 @@ export default function UploadNoticeForm() {
                         </div>
                     </div>
                 </div>
-
-                {/* SUBMIT */}
-                <button
-                    type="submit"
-                    className="btn btn-primary w-full"
-                    disabled={loading}
-                >
-                    {loading ? "Uploading..." : "Publish Notice"}
-                </button>
             </div>
         </form>
     );

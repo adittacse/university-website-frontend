@@ -87,10 +87,10 @@ export default function AdminUsersPage() {
 
     return (
         <DashboardLayout>
-            <h1 className="text-2xl font-bold mb-4">Users</h1>
+            <h1 className="text-2xl font-bold mb-10">Manage Users</h1>
 
             {/* Top bar */}
-            <div className="flex justify-between mb-3">
+            <div className="flex justify-between mb-5">
                 <input
                     type="text"
                     placeholder="Search users"
@@ -104,79 +104,81 @@ export default function AdminUsersPage() {
             </div>
 
             {/* Table */}
-            <table className="table table-zebra w-full">
-                <thead>
-                <tr>
-                    <th>SL</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Change Role</th>
-                    <th>Created Date</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                {data?.data?.map((user: User, index: number) => (
-                    <tr key={user._id}>
-                        <td>{index + 1}</td>
-                        <td>{user.name}</td>
-                        <td>{user.email}</td>
-                        <td className="capitalize">{user?.role?.name}</td>
-                        <td>
-                            <select
-                                className="select select-bordered capitalize"
-                                value={user?.role?._id}
-                                onChange={(e) =>
-                                    handleRoleChange(user, e.target.value)
-                                }
-                            >
-                                {roles.map((role: Role) => (
-                                    <option key={role._id} value={role._id} className="capitalize">
-                                        {role.name}
-                                    </option>
-                                ))}
-                            </select>
-                        </td>
-                        <td>{new Date(user?.createdAt).toLocaleString()}</td>
-                        <td>
-                            <button
-                                className="btn btn-sm btn-error"
-                                onClick={async () => {
-                                    const result = await Swal.fire({
-                                        title: "Delete user?",
-                                        text: "This user will be removed",
-                                        icon: "warning",
-                                        showCancelButton: true,
-                                        confirmButtonText: "Yes, delete",
-                                    });
-
-                                    if (!result.isConfirmed) return;
-
-                                    await deleteUser(user._id);
-
-                                    await Swal.fire({
-                                        icon: "success",
-                                        title: "User deleted",
-                                        timer: 1500,
-                                        showConfirmButton: false,
-                                    });
-
-                                    await loadData();
-                                }}
-                            >
-                                Delete
-                            </button>
-                        </td>
+            <div className="overflow-x-auto bg-base-100 shadow-2xl rounded-2xl">
+                <table className="table table-zebra">
+                    <thead>
+                    <tr>
+                        <th>SL</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Change Role</th>
+                        <th>Created Date</th>
+                        <th>Actions</th>
                     </tr>
-                ))}
-                </tbody>
-            </table>
+                    </thead>
+
+                    <tbody>
+                    {data?.data?.map((user: User, index: number) => (
+                        <tr key={user._id}>
+                            <td>{index + 1}</td>
+                            <td>{user.name}</td>
+                            <td>{user.email}</td>
+                            <td className="capitalize">{user?.role?.name}</td>
+                            <td>
+                                <select
+                                    className="select select-bordered capitalize"
+                                    value={user?.role?._id}
+                                    onChange={(e) =>
+                                        handleRoleChange(user, e.target.value)
+                                    }
+                                >
+                                    {roles.map((role: Role) => (
+                                        <option key={role._id} value={role._id} className="capitalize">
+                                            {role.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </td>
+                            <td>{new Date(user?.createdAt).toLocaleString()}</td>
+                            <td>
+                                <button
+                                    className="btn btn-sm btn-error"
+                                    onClick={async () => {
+                                        const result = await Swal.fire({
+                                            title: "Delete user?",
+                                            text: "This user will be removed",
+                                            icon: "warning",
+                                            showCancelButton: true,
+                                            confirmButtonText: "Yes, delete",
+                                        });
+
+                                        if (!result.isConfirmed) return;
+
+                                        await deleteUser(user._id);
+
+                                        await Swal.fire({
+                                            icon: "success",
+                                            title: "User deleted",
+                                            timer: 1500,
+                                            showConfirmButton: false,
+                                        });
+
+                                        await loadData();
+                                    }}
+                                >
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
 
             {/* Pagination */}
             <div className="flex justify-between items-center mt-4">
-                <span>{data?.pagination?.total} users</span>
+                <span>{data?.pagination?.total} users found</span>
 
                 <div className="flex gap-2">
                     <button

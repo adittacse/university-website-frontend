@@ -33,11 +33,9 @@ export default function RoleForm({ onCreated }: Props) {
     };
 
     return (
-        <div className="card bg-base-100 border shadow-sm">
+        <div className="card bg-base-100 shadow-2xl rounded-2xl">
             <div className="card-body">
-                <h2 className="font-semibold mb-3">
-                    Add New Role
-                </h2>
+                <h2 className="font-semibold mb-4">Add New Role</h2>
 
                 <form onSubmit={handleSubmit} className="space-y-3">
                     <div>

@@ -3,19 +3,16 @@
 import Sidebar from "./Sidebar";
 
 export default function DashboardLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
+        children,
+    }: {
+        children: React.ReactNode;
+    }) {
     return (
-        <div className="flex">
-            {/* Left Sidebar */}
-            <aside className="w-64 hidden lg:block border-r bg-base-100">
-                <Sidebar/>
-            </aside>
+        <div className="flex min-h-screen bg-base-200">
+            <Sidebar/>
 
             {/* Main Area */}
-            <main className="flex-1 bg-base-100 p-6">
+            <main className="flex-1 p-4 md:p-6">
                 {children}
             </main>
         </div>

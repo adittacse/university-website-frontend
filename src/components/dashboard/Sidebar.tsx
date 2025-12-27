@@ -1,34 +1,62 @@
 "use client";
 
 import Link from "next/link";
+import api from "@/lib/axios";
+import { NavItem } from "@/components/dashboard/NavItem";
 
 export default function Sidebar() {
-    return (
-        <aside className="w-64 bg-base-300 min-h-screen hidden md:block p-4">
-            <h2 className="font-bold text-lg mb-4">Dashboard</h2>
+    const logout = async () => {
+        try {
+            await api.post("/auth/logout");
+        } catch (error) {
+            // even if backend fails, logout locally
+        }
 
-            <nav>
-                <ul className="menu">
+        localStorage.removeItem("token");
+        location.href = "/";
+    };
+
+    return (
+        <aside className="w-64 bg-base-100 border-r hidden md:block">
+            <div className="p-4 border-b">
+                <Link href="/" className="font-bold text-xl flex items-center gap-2 mb-5">
+                    <span className="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-white">
+                        UWB
+                    </span>
+                    <span>University Website <br/>Dashboard</span>
+                </Link>
+
+                {/*<p className="text-xs text-gray-500 mt-1">*/}
+                {/*    {role && role.toUpperCase()}*/}
+                {/*    {isPremium && " • PREMIUM"}*/}
+                {/*    {isBlocked && " • BLOCKED"}*/}
+                {/*</p>*/}
+            </div>
+
+            <nav className="p-4">
+                <ul className="space-y-2">
                     <li>
-                        <Link href="/">Home Page</Link>
+                        <NavItem href="/dashboard">Overview</NavItem>
                     </li>
                     <li>
-                        <Link href="/dashboard">Overview</Link>
+                        <NavItem href="/dashboard/notices">All Notice</NavItem>
                     </li>
                     <li>
-                        <Link href="/dashboard/notices">All Notice</Link>
+                        <NavItem href="/dashboard/upload-notice">Upload Notice</NavItem>
                     </li>
                     <li>
-                        <Link href="/dashboard/upload-notice">Upload Notice</Link>
+                        <NavItem href="/dashboard/categories">Manage Categories</NavItem>
                     </li>
                     <li>
-                        <Link href="/dashboard/categories">Manage Categories</Link>
+                        <NavItem href="/dashboard/roles">Manage Roles</NavItem>
                     </li>
                     <li>
-                        <Link href="/dashboard/roles">Manage Roles</Link>
+                        <NavItem href="/dashboard/users">Manage Users</NavItem>
                     </li>
                     <li>
-                        <Link href="/dashboard/users">Manage Users</Link>
+                        <button className="btn btn-sm btn-error btn-block mt-4" onClick={logout}>
+                            Logout
+                        </button>
                     </li>
                 </ul>
             </nav>

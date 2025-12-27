@@ -55,61 +55,63 @@ export default function CategoryForm({ onCreated }: Props) {
     };
 
     return (
-        <div className="border rounded p-4 bg-base-100">
-            <h2 className="font-semibold mb-4">Add New Category</h2>
+        <div className="card bg-base-100 shadow-2xl rounded-2xl">
+            <div className="card-body">
+                <h2 className="font-semibold mb-4">Add New Category</h2>
 
-            <form onSubmit={handleSubmit} className="space-y-3">
-                {/* Name */}
-                <div>
-                    <label className="block text-sm font-medium mb-1">
-                        Name
-                    </label>
-                    <input
-                        type="text"
-                        className="input input-sm input-bordered w-full"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="Category name"
-                    />
-                    <p className="text-xs text-gray-500 mt-1">
-                        The name is how it appears on your site.
-                    </p>
-                </div>
+                <form onSubmit={handleSubmit} className="space-y-3">
+                    {/* Name */}
+                    <div>
+                        <label className="block text-sm font-medium mb-1">
+                            Name
+                        </label>
+                        <input
+                            type="text"
+                            className="input input-sm input-bordered w-full"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            placeholder="Category name"
+                        />
+                        <p className="text-xs text-gray-500 mt-1">
+                            The name is how it appears on your site.
+                        </p>
+                    </div>
 
-                {/* Parent */}
-                <div>
-                    <label className="block text-sm font-medium mb-1">
-                        Parent Category
-                    </label>
-                    <select
-                        className="select select-sm select-bordered w-full"
-                        value={parent ?? ""}
-                        onChange={(e) =>
-                            setParent(e.target.value || null)
-                        }
+                    {/* Parent */}
+                    <div>
+                        <label className="block text-sm font-medium mb-1">
+                            Parent Category
+                        </label>
+                        <select
+                            className="select select-sm select-bordered w-full"
+                            value={parent ?? ""}
+                            onChange={(e) =>
+                                setParent(e.target.value || null)
+                            }
+                        >
+                            <option value="">None</option>
+                            {indentedCategories.map((cat) => (
+                                <option key={cat._id} value={cat._id}>
+                                    {(cat as any)._depth > 0 && "— ".repeat((cat as any)._depth)}
+                                    {cat.name}
+                                </option>
+                            ))}
+                        </select>
+                        <p className="text-xs text-gray-500 mt-1">
+                            Categories can have a hierarchy.
+                        </p>
+                    </div>
+
+                    {/* Submit */}
+                    <button
+                        type="submit"
+                        className="btn btn-sm btn-primary"
+                        disabled={loading}
                     >
-                        <option value="">None</option>
-                        {indentedCategories.map((cat) => (
-                            <option key={cat._id} value={cat._id}>
-                                {(cat as any)._depth > 0 && "— ".repeat((cat as any)._depth)}
-                                {cat.name}
-                            </option>
-                        ))}
-                    </select>
-                    <p className="text-xs text-gray-500 mt-1">
-                        Categories can have a hierarchy.
-                    </p>
-                </div>
-
-                {/* Submit */}
-                <button
-                    type="submit"
-                    className="btn btn-sm btn-primary"
-                    disabled={loading}
-                >
-                    {loading ? "Adding..." : "Add Category"}
-                </button>
-            </form>
+                        {loading ? "Adding..." : "Add Category"}
+                    </button>
+                </form>
+            </div>
         </div>
     );
 }

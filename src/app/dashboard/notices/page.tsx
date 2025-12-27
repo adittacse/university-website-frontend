@@ -112,10 +112,10 @@ export default function AdminNoticesPage() {
 
     return (
         <DashboardLayout>
-            <h1 className="text-2xl font-bold mb-4">Notices</h1>
+            <h1 className="text-2xl font-bold mb-10">Notices</h1>
 
             {/* Published / Trash tabs */}
-            <div className="flex gap-4 border-b mb-4">
+            <div className="flex gap-4 border-b pb-5 mb-5">
                 <button
                     className={!isDeleted ? "font-bold" : "text-gray-500"}
                     onClick={() => {
@@ -140,7 +140,7 @@ export default function AdminNoticesPage() {
 
 
             {/* Top toolbar */}
-            <div className="flex justify-between items-center mb-3">
+            <div className="flex justify-between items-center mb-5">
                 <div className="flex gap-2">
                     <select
                         className="select select-sm select-bordered"
@@ -161,7 +161,7 @@ export default function AdminNoticesPage() {
                         )}
                     </select>
 
-                    <button className="btn btn-sm" onClick={applyBulkAction}>
+                    <button className="btn btn-sm btn-warning" onClick={applyBulkAction}>
                         Apply
                     </button>
                 </div>
@@ -179,127 +179,129 @@ export default function AdminNoticesPage() {
             </div>
 
             {/* Table */}
-            <table className="table table-zebra w-full">
-                <thead>
-                <tr>
-                    <th>
-                        <input
-                            type="checkbox"
-                            checked={data?.data?.length > 0 && selectedIds.length === data.data.length}
-                            onChange={(e) => {
-                                if (e.target.checked) {
-                                    setSelectedIds(data.data.map((n: any) => n._id));
-                                } else {
-                                    setSelectedIds([]);
-                                }
-                            }}
-                        />
-                    </th>
-                    <th>SL.</th>
-                    <th>Title</th>
-                    <th>Categories</th>
-                    <th>Author</th>
-                    <th>Created Date</th>
-                    <th>Updated Date</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                {data?.data?.map((n: Notice, index: number) => (
-                    <tr key={n._id}>
-                        <td>
-                            <input
-                                type="checkbox"
-                                checked={selectedIds.includes(n._id)}
-                                onChange={(e) => {
-                                    if (e.target.checked) {
-                                        setSelectedIds(prev => [...prev, n._id]);
-                                    } else {
-                                        setSelectedIds(prev => prev.filter(id => id !== n._id));
-                                    }
-                                }}
-                            />
-                        </td>
-                        <td>{index + 1}</td>
-
-                        <td>
-                            <div className="group">
-                                <span className="font-medium">{n.title}</span>
-
-                                <div className="text-sm text-blue-600 opacity-0 group-hover:opacity-100 flex gap-2 mt-1">
-
-                                </div>
-                            </div>
-                        </td>
-
-                        <td>{n.categories.map((c: any) => c.name).join(", ")}</td>
-                        <td>{n?.createdBy?.name}</td>
-                        <td>{new Date(n?.createdAt).toLocaleString()}</td>
-                        <td>{new Date(n?.updatedAt).toLocaleString()}</td>
-                        <td className="flex items-center gap-5">
-                            <Link className="btn btn-secondary btn-sm"
-                                    href={`/notices/${n._id}`}
-                            >
-                                View
-                            </Link>
-
-                            {!isDeleted && (
-                                <button
-                                    className="btn btn-primary btn-sm"
-                                    onClick={async () => {
-                                        const result = await Swal.fire({
-                                            title: "Are you sure?",
-                                            text: "You will be able to restore this from Trash!",
-                                            icon: "warning",
-                                            showCancelButton: true,
-                                            confirmButtonText: "Yes, move to Trash",
-                                        });
-
-                                        if (!result.isConfirmed) return;
-
-                                        await softDeleteNotice(n._id);
-
-                                        await Swal.fire({
-                                            icon: "success",
-                                            title: "Moved to Trash",
-                                            timer: 1200,
-                                            showConfirmButton: false,
-                                        });
-
-                                        await loadData();
-                                        await getNoticeCounts();
+            <div className="overflow-x-auto bg-base-100 shadow-2xl rounded-2xl">
+                <table className="table table-zebra w-full">
+                    <thead>
+                        <tr>
+                            <th>
+                                <input
+                                    type="checkbox"
+                                    checked={data?.data?.length > 0 && selectedIds.length === data.data.length}
+                                    onChange={(e) => {
+                                        if (e.target.checked) {
+                                            setSelectedIds(data.data.map((n: any) => n._id));
+                                        } else {
+                                            setSelectedIds([]);
+                                        }
                                     }}
-                                >
-                                    Trash
-                                </button>
-                            )}
+                                />
+                            </th>
+                            <th>SL.</th>
+                            <th>Title</th>
+                            <th>Categories</th>
+                            <th>Author</th>
+                            <th>Created Date</th>
+                            <th>Updated Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
 
-                            {isDeleted && (
-                                <div className="flex items-center gap-5">
-                                    <button className="btn btn-sm btn-primary"
-                                            onClick={() => handleRestore(n._id)}
-                                    >
-                                        Restore
-                                    </button>
-                                    <button className="btn btn-sm btn-error"
-                                            onClick={() =>
-                                                permanentDeleteNotices([n._id]).then(loadData)
-                                            }
-                                    >
-                                        Delete Permanently
-                                    </button>
+                    <tbody>
+                    {data?.data?.map((n: Notice, index: number) => (
+                        <tr key={n._id}>
+                            <td>
+                                <input
+                                    type="checkbox"
+                                    checked={selectedIds.includes(n._id)}
+                                    onChange={(e) => {
+                                        if (e.target.checked) {
+                                            setSelectedIds(prev => [...prev, n._id]);
+                                        } else {
+                                            setSelectedIds(prev => prev.filter(id => id !== n._id));
+                                        }
+                                    }}
+                                />
+                            </td>
+                            <td>{index + 1}</td>
+
+                            <td>
+                                <div className="group">
+                                    <span className="font-medium">{n.title}</span>
+
+                                    <div className="text-sm text-blue-600 opacity-0 group-hover:opacity-100 flex gap-2 mt-1">
+
+                                    </div>
                                 </div>
-                            )}
-                        </td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
+                            </td>
+
+                            <td>{n.categories.map((c: any) => c.name).join(", ")}</td>
+                            <td>{n?.createdBy?.name}</td>
+                            <td>{new Date(n?.createdAt).toLocaleString()}</td>
+                            <td>{new Date(n?.updatedAt).toLocaleString()}</td>
+                            <td className="flex items-center gap-5">
+                                <Link className="btn btn-secondary btn-sm"
+                                        href={`/notices/${n._id}`}
+                                >
+                                    View
+                                </Link>
+
+                                {!isDeleted && (
+                                    <button
+                                        className="btn btn-primary btn-sm"
+                                        onClick={async () => {
+                                            const result = await Swal.fire({
+                                                title: "Are you sure?",
+                                                text: "You will be able to restore this from Trash!",
+                                                icon: "warning",
+                                                showCancelButton: true,
+                                                confirmButtonText: "Yes, move to Trash",
+                                            });
+
+                                            if (!result.isConfirmed) return;
+
+                                            await softDeleteNotice(n._id);
+
+                                            await Swal.fire({
+                                                icon: "success",
+                                                title: "Moved to Trash",
+                                                timer: 1200,
+                                                showConfirmButton: false,
+                                            });
+
+                                            await loadData();
+                                            await getNoticeCounts();
+                                        }}
+                                    >
+                                        Trash
+                                    </button>
+                                )}
+
+                                {isDeleted && (
+                                    <div className="flex items-center gap-5">
+                                        <button className="btn btn-sm btn-primary"
+                                                onClick={() => handleRestore(n._id)}
+                                        >
+                                            Restore
+                                        </button>
+                                        <button className="btn btn-sm btn-error"
+                                                onClick={() =>
+                                                    permanentDeleteNotices([n._id]).then(loadData)
+                                                }
+                                        >
+                                            Delete Permanently
+                                        </button>
+                                    </div>
+                                )}
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
 
             {/* Pagination bottom */}
             <div className="flex justify-between items-center mt-4">
-                <span>{data?.pagination?.total} items</span>
+                <span>{data?.pagination?.total} notices found</span>
 
                 <div className="flex gap-2">
                     <button
