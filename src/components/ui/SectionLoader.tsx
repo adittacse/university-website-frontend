@@ -1,0 +1,10 @@
+export default function SectionLoader() {
+    return (
+        <div className="flex flex-col items-center justify-center min-h-[300px] gap-3">
+            <span className="loading loading-spinner loading-lg text-primary" />
+            <p className="text-sm text-gray-500">
+                Loading, please wait...
+            </p>
+        </div>
+    );
+}

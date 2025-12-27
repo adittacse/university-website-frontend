@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { store } from "@/store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
+import { LoadingProvider } from "@/context/LoadingContext";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -25,21 +26,21 @@ const geistMono = Geist_Mono({
 
 const queryClient = new QueryClient();
 
-export default function RootLayout({
-                                       children,
-                                   }: Readonly<{
+export default function RootLayout({ children }: Readonly<{
     children: React.ReactNode;
 }>) {
     return (
         <html lang="en" data-theme="light">
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-                <SessionProvider>
-                    <Provider store={store}>
-                        <QueryClientProvider client={queryClient}>
-                            {children}
-                        </QueryClientProvider>
-                    </Provider>
-                </SessionProvider>
+                <LoadingProvider>
+                    <SessionProvider>
+                        <Provider store={store}>
+                            <QueryClientProvider client={queryClient}>
+                                {children}
+                            </QueryClientProvider>
+                        </Provider>
+                    </SessionProvider>
+                </LoadingProvider>
             </body>
         </html>
     );

@@ -13,6 +13,7 @@ import {
 import { Notice } from "@/types/notice";
 import Link from "next/link";
 import Swal from "sweetalert2";
+import SectionLoader from "@/components/ui/SectionLoader";
 
 export default function AdminNoticesPage() {
     const [page, setPage] = useState(1);
@@ -106,9 +107,15 @@ export default function AdminNoticesPage() {
         }
     };
 
-    // if (!data) {
-    //     return <p>Loading Data...</p>;
-    // }
+    if (!data) {
+        return (
+            <DashboardLayout>
+                <h1 className="text-2xl font-bold mb-10">Notices</h1>
+
+                <SectionLoader />
+            </DashboardLayout>
+        );
+    }
 
     return (
         <DashboardLayout>

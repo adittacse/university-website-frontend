@@ -102,53 +102,55 @@ export default function AdminCategoriesPage() {
                                 </thead>
 
                                 <tbody>
-                                {indentedCategories.map(cat => (
-                                    <tr key={cat._id}>
-                                        <td>
-                                            <input
-                                                type="checkbox"
-                                                checked={selectedIds.includes(cat._id)}
-                                                onChange={e => {
-                                                    if (e.target.checked) {
-                                                        setSelectedIds(p => [...p, cat._id]);
-                                                    } else {
-                                                        setSelectedIds(p =>
-                                                            p.filter(id => id !== cat._id)
-                                                        );
+                                {
+                                    indentedCategories.map(cat => (
+                                        <tr key={cat._id}>
+                                            <td>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={selectedIds.includes(cat._id)}
+                                                    onChange={e => {
+                                                        if (e.target.checked) {
+                                                            setSelectedIds(p => [...p, cat._id]);
+                                                        } else {
+                                                            setSelectedIds(p =>
+                                                                p.filter(id => id !== cat._id)
+                                                            );
+                                                        }
+                                                    }}
+                                                />
+                                            </td>
+
+                                            <td>
+                                                <span
+                                                    className="font-medium"
+                                                    style={{paddingLeft: `${(cat as any)._depth * 16}px`}}
+                                                >
+                                                    {(cat as any)._depth > 0 && "— ".repeat((cat as any)._depth)}
+                                                    {cat.name}
+                                                </span>
+                                            </td>
+
+                                            <td>{cat?.parent?.name}</td>
+                                            <td className="flex items-center gap-5">
+                                                <button
+                                                    className="btn btn-sm btn-primary"
+                                                    onClick={() => setEditingCategory(cat)}
+                                                >
+                                                    Edit
+                                                </button>
+                                                <button
+                                                    className="btn btn-sm btn-error"
+                                                    onClick={() =>
+                                                        deleteCategory(cat._id).then(loadData)
                                                     }
-                                                }}
-                                            />
-                                        </td>
-
-                                        <td>
-                                            <span
-                                                className="font-medium"
-                                                style={{paddingLeft: `${(cat as any)._depth * 16}px`}}
-                                            >
-                                                {(cat as any)._depth > 0 && "— ".repeat((cat as any)._depth)}
-                                                {cat.name}
-                                            </span>
-                                        </td>
-
-                                        <td>{cat?.parent?.name}</td>
-                                        <td className="flex items-center gap-5">
-                                            <button
-                                                className="btn btn-sm btn-primary"
-                                                onClick={() => setEditingCategory(cat)}
-                                            >
-                                                Edit
-                                            </button>
-                                            <button
-                                                className="btn btn-sm btn-error"
-                                                onClick={() =>
-                                                    deleteCategory(cat._id).then(loadData)
-                                                }
-                                            >
-                                                Delete
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))}
+                                                >
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>)
+                                    )
+                                }
                                 </tbody>
                             </table>
                         </div>
