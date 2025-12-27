@@ -6,7 +6,6 @@ import api from "@/lib/axios";
 import { Category } from "@/types/category";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
-import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import SectionLoader from "@/components/ui/SectionLoader";
 
 type Role = {

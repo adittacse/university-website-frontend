@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useLoading } from "@/context/LoadingContext";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import { getAdminDashboard } from "@/services/adminDashboard.service";
 import { DashboardData } from "@/types/dashboardData";
