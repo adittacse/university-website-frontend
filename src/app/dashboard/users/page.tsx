@@ -112,7 +112,7 @@ export default function AdminUsersPage() {
                     <th>Email</th>
                     <th>Role</th>
                     <th>Change Role</th>
-                    <th>Created</th>
+                    <th>Created Date</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
