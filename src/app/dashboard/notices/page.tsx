@@ -245,36 +245,44 @@ export default function AdminNoticesPage() {
                                     View
                                 </Link>
 
-                                {!isDeleted && (
-                                    <button
-                                        className="btn btn-primary btn-sm"
-                                        onClick={async () => {
-                                            const result = await Swal.fire({
-                                                title: "Are you sure?",
-                                                text: "You will be able to restore this from Trash!",
-                                                icon: "warning",
-                                                showCancelButton: true,
-                                                confirmButtonText: "Yes, move to Trash",
-                                            });
+                                {
+                                    !isDeleted && <>
+                                        <Link className="btn btn-info btn-sm"
+                                              href={`/dashboard/notices/edit/${n._id}`}
+                                        >
+                                            Edit
+                                        </Link>
 
-                                            if (!result.isConfirmed) return;
+                                        <button
+                                            className="btn btn-primary btn-sm"
+                                            onClick={async () => {
+                                                const result = await Swal.fire({
+                                                    title: "Are you sure?",
+                                                    text: "You will be able to restore this from Trash!",
+                                                    icon: "warning",
+                                                    showCancelButton: true,
+                                                    confirmButtonText: "Yes, move to Trash",
+                                                });
 
-                                            await softDeleteNotice(n._id);
+                                                if (!result.isConfirmed) return;
 
-                                            await Swal.fire({
-                                                icon: "success",
-                                                title: "Moved to Trash",
-                                                timer: 1200,
-                                                showConfirmButton: false,
-                                            });
+                                                await softDeleteNotice(n._id);
 
-                                            await loadData();
-                                            await getNoticeCounts();
-                                        }}
-                                    >
-                                        Trash
-                                    </button>
-                                )}
+                                                await Swal.fire({
+                                                    icon: "success",
+                                                    title: "Moved to Trash",
+                                                    timer: 1200,
+                                                    showConfirmButton: false,
+                                                });
+
+                                                await loadData();
+                                                await getNoticeCounts();
+                                            }}
+                                        >
+                                            Trash
+                                        </button>
+                                    </>
+                                }
 
                                 {isDeleted && (
                                     <div className="flex items-center gap-5">
