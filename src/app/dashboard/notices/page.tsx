@@ -56,13 +56,13 @@ export default function AdminNoticesPage() {
         }
     };
 
-    const toggleAll = (checked: boolean) => {
-        if (checked) {
-            setSelectedIds(data.data.map((n: any) => n._id));
-        } else {
-            setSelectedIds([]);
-        }
-    };
+    // const toggleAll = (checked: boolean) => {
+    //     if (checked) {
+    //         setSelectedIds(data.data.map((n: any) => n._id));
+    //     } else {
+    //         setSelectedIds([]);
+    //     }
+    // };
 
     const applyBulkAction = async () => {
         if (!bulkAction) {
@@ -235,8 +235,8 @@ export default function AdminNoticesPage() {
 
                         <td>{n.categories.map((c: any) => c.name).join(", ")}</td>
                         <td>{n?.createdBy?.name}</td>
-                        <td>{new Date(n.createdAt).toLocaleString()}</td>
-                        <td>{new Date(n.updatedAt).toLocaleString()}</td>
+                        <td>{new Date(n?.createdAt).toLocaleString()}</td>
+                        <td>{new Date(n?.updatedAt).toLocaleString()}</td>
                         <td className="flex items-center gap-5">
                             <Link className="btn btn-secondary btn-sm"
                                     href={`/notices/${n._id}`}

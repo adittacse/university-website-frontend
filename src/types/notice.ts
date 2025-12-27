@@ -26,7 +26,7 @@ export type Notice = {
     };
 
     createdAt: string;
-    updatedAt?: string;
+    updatedAt: string;
 };
 
 

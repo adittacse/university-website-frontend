@@ -6,5 +6,4 @@ export interface Category {
         name: string;
     } | null;
     noticeCount?: number;
-    _depth?: number;
 }

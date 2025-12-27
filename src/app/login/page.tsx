@@ -22,7 +22,7 @@ export default function LoginPage() {
 
             await Swal.fire("Success", "Logged in successfully", "success");
             router.push("/");
-        } catch (error: never) {
+        } catch (error: any) {
             await Swal.fire(
                 "Error",
                 error?.response?.data?.message || "Login failed",

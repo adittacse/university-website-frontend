@@ -3,12 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { buildIndentedCategories } from "@/utils/categoryTree";
 import api from "@/lib/axios";
+import { Category } from "@/types/category";
 import Swal from "sweetalert2";
-
-type Category = {
-    _id: string;
-    name: string;
-};
 
 type Role = {
     _id: string;
@@ -67,7 +63,7 @@ export default function UploadNoticeForm() {
         e.preventDefault();
 
         if (!title || !file || selectedCategories.length === 0) {
-            Swal.fire("Error", "Title, Category & File are required", "error");
+            await Swal.fire("Error", "Title, Category & File are required", "error");
             return;
         }
 
@@ -189,7 +185,7 @@ export default function UploadNoticeForm() {
                         <h2 className="font-semibold">Categories</h2>
 
                         <div className="max-h-52 overflow-y-auto space-y-2">
-                            {indentedCategories.map((cat: Category) => (
+                            {indentedCategories.map((cat) => (
                                 <label
                                     key={cat._id}
                                     className="flex items-start gap-2 text-sm"

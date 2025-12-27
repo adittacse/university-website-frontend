@@ -17,7 +17,7 @@ export default function CategoryForm({ onCreated }: Props) {
 
     // load categories for parent dropdown
     useEffect(() => {
-        getCategories({}).then(setCategories);
+        getCategories().then(setCategories);
     }, []);
 
     const indentedCategories = buildIndentedCategories(categories);

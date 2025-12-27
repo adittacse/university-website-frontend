@@ -1,5 +1,9 @@
 import { Category } from "@/types/category";
 
+export type IndentedCategory = Category & {
+    _depth: number;
+};
+
 /**
  * Convert flat category list into indented list (WordPress style)
  */
@@ -7,8 +11,8 @@ export function buildIndentedCategories(
     categories: Category[],
     parentId: string | null = null,
     depth = 0
-): Category[] {
-    let result: Category[] = [];
+): IndentedCategory[] {
+    let result: IndentedCategory[] = [];
 
     const children = categories.filter(cat =>
         parentId === null
@@ -17,10 +21,12 @@ export function buildIndentedCategories(
     );
 
     for (const child of children) {
-        // attach depth (UI use only)
-        (child as any)._depth = depth;
+        const indentedChild: IndentedCategory = {
+            ...child,
+            _depth: depth,
+        };
 
-        result.push(child);
+        result.push(indentedChild);
 
         result = result.concat(
             buildIndentedCategories(categories, child._id, depth + 1)
