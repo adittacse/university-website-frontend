@@ -28,7 +28,7 @@ export default function Sidebar() {
                         <Link href="/dashboard/roles">Manage Roles</Link>
                     </li>
                     <li>
-                        <Link href="/dashboard/users">Users</Link>
+                        <Link href="/dashboard/users">Manage Users</Link>
                     </li>
                 </ul>
             </nav>

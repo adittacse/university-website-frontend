@@ -34,7 +34,8 @@ export default function NoticeDetailsPage() {
 
                 <div className="mt-6">
                     <a
-                        href={`https://university-website-backend.onrender.com/${notice.file.path}`}
+                        // href={`https://university-website-backend.onrender.com/${notice.file.path}`}
+                        href={`http://localhost:5002/${notice.file.path}`}
                         target="_blank"
                         className="btn btn-primary"
                     >

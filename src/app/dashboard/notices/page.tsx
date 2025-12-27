@@ -106,9 +106,9 @@ export default function AdminNoticesPage() {
         }
     };
 
-    if (!data) {
-        return <p>Loading Data...</p>;
-    }
+    // if (!data) {
+    //     return <p>Loading Data...</p>;
+    // }
 
     return (
         <DashboardLayout>

@@ -3,7 +3,8 @@ import axios from "axios";
 // https://university-website-backend.onrender.com
 
 const api = axios.create({
-    baseURL: "https://university-website-backend.onrender.com/api",
+    // baseURL: "https://university-website-backend.onrender.com/api",
+    baseURL: "http://localhost:5002/api",
 });
 
 api.interceptors.request.use((config) => {
