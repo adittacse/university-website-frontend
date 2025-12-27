@@ -14,7 +14,15 @@ export default function Navbar() {
     }, []);
 
     const logout = async () => {
-        await api.post("/auth/logout");
+        try {
+            await api.post("/auth/logout");
+        } catch (e) {
+            // even if backend fails, logout locally
+        }
+
+        // 🔥 MOST IMPORTANT
+        localStorage.removeItem("token");
+
         location.href = "/";
     };
 

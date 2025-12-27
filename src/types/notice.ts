@@ -19,8 +19,16 @@ export type Notice = {
     viewCount: number;
     downloadCount: number;
     isDeleted: boolean;
+
+    createdBy?: {
+        _id: string;
+        name: string;
+    };
+
     createdAt: string;
+    updatedAt?: string;
 };
+
 
 export interface NoticesResponse {
     data: Notice[];

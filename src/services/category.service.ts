@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 
 export const getCategories = async () => {
     const res = await api.get("/categories");
+    console.log(res)
     return res.data;
 };
 

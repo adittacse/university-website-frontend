@@ -16,12 +16,14 @@ export default function LoginPage() {
 
     const onSubmit = async (data: LoginForm) => {
         try {
-            await api.post("/auth/login", data);
+            const res = await api.post("/auth/login", data);
 
-            Swal.fire("Success", "Logged in successfully", "success");
+            localStorage.setItem("token", res.data.token);
+
+            await Swal.fire("Success", "Logged in successfully", "success");
             router.push("/");
-        } catch (error: any) {
-            Swal.fire(
+        } catch (error: never) {
+            await Swal.fire(
                 "Error",
                 error?.response?.data?.message || "Login failed",
                 "error"

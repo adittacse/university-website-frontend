@@ -20,9 +20,9 @@ export default function AdminCategoriesPage() {
     const indentedCategories = buildIndentedCategories(categories);
 
     const loadData = useCallback(async () => {
-        const res = await getCategories({search});
+        const res = await getCategories();
         setCategories(res);
-    }, [search]);
+    }, []);
 
     useEffect(() => {
         // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -120,17 +120,13 @@ export default function AdminCategoriesPage() {
                                     </td>
 
                                     <td>
-                                    <span
-                                        className="font-medium text-blue-600 cursor-pointer"
-                                        style={{paddingLeft: `${(cat as any)._depth * 16}px`}}
-                                    >
-                                        {(cat as any)._depth > 0 && "— ".repeat((cat as any)._depth)}
-                                        {cat.name}
-                                    </span>
-
-                                        <div className="text-sm opacity-0 group-hover:opacity-100 flex gap-2 mt-1">
-
-                                        </div>
+                                        <span
+                                            className="font-medium"
+                                            style={{paddingLeft: `${(cat as any)._depth * 16}px`}}
+                                        >
+                                            {(cat as any)._depth > 0 && "— ".repeat((cat as any)._depth)}
+                                            {cat.name}
+                                        </span>
                                     </td>
 
                                     <td>{cat?.parent?.name}</td>

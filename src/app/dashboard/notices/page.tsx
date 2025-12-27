@@ -10,6 +10,7 @@ import {
     bulkRestoreNotice,
     permanentDeleteNotices,
 } from "@/services/adminNotice.service";
+import { Notice } from "@/types/notice";
 import Link from "next/link";
 import Swal from "sweetalert2";
 
@@ -205,7 +206,7 @@ export default function AdminNoticesPage() {
                 </thead>
 
                 <tbody>
-                {data?.data?.map((n: any, index) => (
+                {data?.data?.map((n: Notice, index: number) => (
                     <tr key={n._id}>
                         <td>
                             <input

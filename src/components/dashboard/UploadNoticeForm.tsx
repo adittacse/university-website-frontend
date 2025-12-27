@@ -57,9 +57,10 @@ export default function UploadNoticeForm() {
         (c) => c.name === "General"
     )?._id;
 
-    const isGeneralSelected =
+    const isGeneralSelected = !!(
         generalCategoryId &&
-        selectedCategories.includes(generalCategoryId);
+        selectedCategories.includes(generalCategoryId)
+    );
 
     /* ================= SUBMIT ================= */
     const handleSubmit = async (e: React.FormEvent) => {
@@ -115,7 +116,7 @@ export default function UploadNoticeForm() {
                 fileInputRef.current.value = "";
             }
         } catch (error: any) {
-            Swal.fire(
+            await Swal.fire(
                 "Error",
                 error?.response?.data?.message || "Upload failed",
                 "error"
@@ -188,7 +189,7 @@ export default function UploadNoticeForm() {
                         <h2 className="font-semibold">Categories</h2>
 
                         <div className="max-h-52 overflow-y-auto space-y-2">
-                            {indentedCategories.map((cat: any) => (
+                            {indentedCategories.map((cat: Category) => (
                                 <label
                                     key={cat._id}
                                     className="flex items-start gap-2 text-sm"
