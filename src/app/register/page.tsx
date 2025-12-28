@@ -21,10 +21,11 @@ export default function RegisterPage() {
         try {
             await api.post("/auth/register", data);
 
-            Swal.fire("Success", "Account created", "success");
+            await Swal.fire("Success", "Account created", "success");
             router.push("/login");
         } catch (error: any) {
-            Swal.fire(
+            console.log(error)
+            await Swal.fire(
                 "Error",
                 error?.response?.data?.message || "Registration failed",
                 "error"
