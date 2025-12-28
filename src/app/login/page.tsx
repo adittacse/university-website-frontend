@@ -20,8 +20,16 @@ export default function LoginPage() {
 
             localStorage.setItem("token", res.data.token);
 
-            await Swal.fire("Success", "Logged in successfully", "success");
-            router.push("/");
+            await Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Logged in successfully",
+                showConfirmButton: false,
+                timer: 1500
+            })
+                .then(() => {
+                    router.push("/");
+                })
         } catch (error: any) {
             await Swal.fire(
                 "Error",

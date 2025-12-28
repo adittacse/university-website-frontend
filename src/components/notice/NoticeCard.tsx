@@ -1,51 +1,42 @@
 "use client";
 
 import Link from "next/link";
-import { FaEye, FaDownload } from "react-icons/fa";
 import { Notice } from "@/types/notice";
+import { FaCalendarAlt } from "react-icons/fa";
+import { getFileIcon } from "@/helper/getFileIcon";
 
 type Props = {
     notice: Notice;
 };
 
 export default function NoticeCard({ notice }: Props) {
-    const {_id, title, createdAt, viewCount, downloadCount} = notice;
+    const { _id, title, createdAt, file } = notice;
 
     return (
-        <div className="card bg-base-100 shadow-md border">
-            <div className="card-body space-y-2">
+        <div className="bg-base-100 border border-gray-100 rounded-md p-4 flex gap-4 shadow-md hover:shadow-2xl transition">
 
-                {/* Title → Details */}
+            {/* FILE ICON */}
+            <div className="flex-shrink-0 pt-1">
+                {getFileIcon(file)}
+            </div>
+
+            {/* CONTENT */}
+            <div className="flex-1 space-y-2">
+                {/* Title */}
                 <Link href={`/notices/${_id}`}>
-                    <h2 className="card-title hover:text-primary cursor-pointer">
+                    <h2 className="text-red-700 font-semibold leading-snug hover:underline">
                         {title}
                     </h2>
                 </Link>
 
-                {/* Meta info */}
-                <div className="text-sm text-gray-500">
-                    Published: {new Date(createdAt).toLocaleDateString()}
-                </div>
-
-                {/* Stats */}
-                <div className="flex gap-4 text-sm">
-                    <span className="flex items-center gap-1">
-                        <FaEye /> {viewCount}
-                    </span>
-
-                    <span className="flex items-center gap-1">
-                        <FaDownload /> {downloadCount}
-                    </span>
-                </div>
-
-                {/* Actions */}
-                <div className="card-actions justify-end pt-2">
-                    <Link
-                        href={`/notices/${notice._id}`}
-                        className="btn btn-sm btn-outline"
-                    >
-                        View Details
-                    </Link>
+                {/* Date */}
+                <div className="flex items-center gap-2 text-sm text-gray-500 mt-2">
+                    <FaCalendarAlt className="text-xs" />
+                    {new Date(createdAt).toLocaleDateString("en-GB", {
+                        day: "2-digit",
+                        month: "long",
+                        year: "numeric",
+                    })}
                 </div>
             </div>
         </div>

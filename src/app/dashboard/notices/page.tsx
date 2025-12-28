@@ -33,6 +33,7 @@ export default function AdminNoticesPage() {
             search,
             isDeleted,
         });
+        // console.log(res);
         setData(res);
     }, [page, search, isDeleted]);
 
@@ -119,7 +120,7 @@ export default function AdminNoticesPage() {
 
     return (
         <DashboardLayout>
-            <h1 className="text-2xl font-bold mb-10">Notices</h1>
+            <h1 className="text-2xl font-bold mb-10">All Notice</h1>
 
             {/* Published / Trash tabs */}
             <div className="flex gap-4 border-b pb-5 mb-5">
@@ -206,6 +207,7 @@ export default function AdminNoticesPage() {
                             <th>SL.</th>
                             <th>Title</th>
                             <th>Categories</th>
+                            <th>Roles</th>
                             <th>Author</th>
                             <th>Created Date</th>
                             <th>Updated Date</th>
@@ -242,6 +244,7 @@ export default function AdminNoticesPage() {
                             </td>
 
                             <td>{n.categories.map((c: any) => c.name).join(", ")}</td>
+                            <td className="capitalize">{n.allowedRoles.map((c: any) => c.name).join(", ")}</td>
                             <td>{n?.createdBy?.name}</td>
                             <td>{new Date(n?.createdAt).toLocaleString()}</td>
                             <td>{new Date(n?.updatedAt).toLocaleString()}</td>
@@ -299,9 +302,29 @@ export default function AdminNoticesPage() {
                                             Restore
                                         </button>
                                         <button className="btn btn-sm btn-error"
-                                                onClick={() =>
-                                                    permanentDeleteNotices([n._id]).then(loadData)
-                                                }
+                                                onClick={async () => {
+                                                    const result = await Swal.fire({
+                                                        title: "Are you sure?",
+                                                        text: "You won't be able to revert this!",
+                                                        icon: "warning",
+                                                        showCancelButton: true,
+                                                        confirmButtonText: "Yes, move to Trash",
+                                                    });
+
+                                                    if (!result.isConfirmed) return;
+
+                                                    await permanentDeleteNotices([n._id]);
+
+                                                    await Swal.fire({
+                                                        icon: "success",
+                                                        title: "Moved to Trash",
+                                                        timer: 1200,
+                                                        showConfirmButton: false,
+                                                    });
+
+                                                    await loadData();
+                                                    await getNoticeCounts();
+                                                }}
                                         >
                                             Delete Permanently
                                         </button>

@@ -4,23 +4,26 @@ import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import NoticeCard from "@/components/notice/NoticeCard";
 import { useNotices } from "@/hooks/useNotices";
+import SectionLoader from "@/components/ui/SectionLoader";
 
 export default function NoticesPage() {
     const [page, setPage] = useState(1);
     const {data, isLoading} = useNotices(page);
 
+    if (isLoading) {
+        return <SectionLoader />;
+    }
+
     return (
         <>
             <Navbar/>
 
-            <div className="p-6 max-w-6xl mx-auto">
-                <h1 className="text-2xl font-bold mb-4">Notices</h1>
+            <div className="p-6 max-w-7xl mx-auto">
+                <h1 className="text-2xl font-bold text-center mb-10">All Notice</h1>
 
-                {isLoading && <p>Loading...</p>}
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
                     {
-                        data?.data?.map((notice) => (
+                        data?.data?.filter(n => !n.isDeleted)?.map((notice) => (
                             <NoticeCard key={notice._id} notice={notice}/>
                         ))
                     }
