@@ -255,7 +255,7 @@ export default function EditNoticeForm({ noticeId }: Props) {
                         {roles.map((role) => (
                             <label
                                 key={role._id}
-                                className="flex items-center gap-2 text-sm"
+                                className="flex items-center gap-2 text-sm capitalize"
                             >
                                 <input
                                     type="checkbox"
