@@ -5,8 +5,8 @@ type Props = {
 };
 
 export default function NoticePreview({ notice }: Props) {
-    // const fileUrl = `https://university-website-backend.onrender.com/${notice?.file?.path}`;
-    const fileUrl = `http://localhost:5002/${notice?.file?.path}`;
+    const fileUrl = `https://university-website-backend.onrender.com/${notice?.file?.path}`;
+    // const fileUrl = `http://localhost:5002/${notice?.file?.path}`;
     const type = notice?.file?.mimetype;
 
     // PDF preview

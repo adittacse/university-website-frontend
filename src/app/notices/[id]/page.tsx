@@ -89,8 +89,8 @@ export default function NoticeDetailsPage() {
 
                     <div className="flex justify-center mt-10">
                         <Link
-                            // href={`https://university-website-backend.onrender.com/${notice?.file?.path}`}
-                            href={`http://localhost:5002/${notice.file.path}`}
+                            href={`https://university-website-backend.onrender.com/${notice?.file?.path}`}
+                            // href={`http://localhost:5002/${notice.file.path}`}
                             download={notice?.file?.filename || "notice-file"}
                             target="_blank"
                             className="btn btn-primary"
