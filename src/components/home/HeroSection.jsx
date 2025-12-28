@@ -10,14 +10,6 @@ const HeroSection = () => {
                 <p className="text-lg text-gray-600 mb-6">
                     Official notice board for academic, administrative & general announcements
                 </p>
-                <div className="flex justify-center gap-4">
-                    <Link href="/notices" className="btn btn-primary">
-                        View All Notices
-                    </Link>
-                    <a href="/login" className="btn btn-outline">
-                        Login
-                    </a>
-                </div>
             </div>
         </section>
     );

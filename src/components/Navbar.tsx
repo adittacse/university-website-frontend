@@ -46,7 +46,7 @@ export default function Navbar() {
             <NavItem href="/dashboard">About</NavItem>
         </li>
         <li>
-            <NavItem href="/dashboard">Contact</NavItem>
+            <NavItem href="/contact">Contact</NavItem>
         </li>
         {
             user && <li>
