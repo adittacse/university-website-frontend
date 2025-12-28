@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import NoticeCard from "@/components/notice/NoticeCard";
 import { useNotices } from "@/hooks/useNotices";
 import SectionLoader from "@/components/ui/SectionLoader";
+import Footer from "@/components/Footer";
 
 export default function NoticesPage() {
     const [page, setPage] = useState(1);
@@ -55,6 +56,8 @@ export default function NoticesPage() {
                     </button>
                 </div>
             </div>
+
+            <Footer />
         </>
     );
 }

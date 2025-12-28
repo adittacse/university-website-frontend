@@ -36,7 +36,7 @@ export default function RegisterPage() {
         <div>
             <Navbar />
 
-            <div className="flex min-h-screen justify-center items-center">
+            <div className="flex my-5 justify-center items-center">
                 <div className="card bg-base-100 w-full max-w-sm shadow-2xl shrink-0">
                     <div className="card-body">
                         <h3 className="text-3xl font-bold text-center mb-1">Register Here!</h3>

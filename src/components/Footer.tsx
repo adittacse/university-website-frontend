@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Footer() {
     return (
-        <footer className="footer footer-horizontal footer-center bg-base-200 text-base-content p-10 mt-16">
+        <footer className="footer footer-horizontal footer-center bg-base-200 text-base-content p-10 mt-10">
 
             {/* 🔗 Navigation */}
             <nav className="grid grid-flow-col gap-6 text-sm">
