@@ -40,10 +40,7 @@ export default function Navbar() {
             <NavItem href="/notices">All Notice</NavItem>
         </li>
         <li>
-            <NavItem href="/dashboard">Departments</NavItem>
-        </li>
-        <li>
-            <NavItem href="/dashboard">About</NavItem>
+            <NavItem href="/about">About</NavItem>
         </li>
         <li>
             <NavItem href="/contact">Contact</NavItem>
