@@ -35,7 +35,9 @@ export default function NoticeMetaTable({ notice }: Props) {
         {
             label: "Roles",
             value: notice.allowedRoles.length > 0 ? (
-                notice.allowedRoles?.map(c => c.name).join(", ") || "—"
+                <span className="capitalize">
+                    {notice.allowedRoles?.map(c => c.name).join(", ") || "—"}
+                </span>
             ) : "N/A",
         },
         {
