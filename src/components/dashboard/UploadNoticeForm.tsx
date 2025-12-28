@@ -184,7 +184,7 @@ export default function UploadNoticeForm() {
                         <input
                             ref={fileInputRef}
                             type="file"
-                            accept=".pdf,.zip,.jpg,.jpeg,.png"
+                            accept=".jpg,.jpeg,.png"
                             onChange={(e) =>
                                 setFile(e.target.files?.[0] || null)
                             }
@@ -192,7 +192,7 @@ export default function UploadNoticeForm() {
                         />
 
                         <p className="text-xs text-gray-500">
-                            Allowed: PDF, Image, ZIP
+                            Allowed: Image (.jpg,.jpeg,.png)
                         </p>
                     </div>
                 </div>

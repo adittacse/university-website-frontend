@@ -11,8 +11,9 @@ export type Notice = {
         name: string;
     }[],
     file?: {
+        originalname: string;
         filename: string;
-        path: string;
+        url: string;
         mimetype: string;
         size: number;
     },

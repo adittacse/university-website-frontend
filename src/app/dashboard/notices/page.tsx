@@ -308,7 +308,7 @@ export default function AdminNoticesPage() {
                                                         text: "You won't be able to revert this!",
                                                         icon: "warning",
                                                         showCancelButton: true,
-                                                        confirmButtonText: "Yes, move to Trash",
+                                                        confirmButtonText: "Yes, permanent delete it",
                                                     });
 
                                                     if (!result.isConfirmed) return;
@@ -317,7 +317,7 @@ export default function AdminNoticesPage() {
 
                                                     await Swal.fire({
                                                         icon: "success",
-                                                        title: "Moved to Trash",
+                                                        title: "Notice permanently deleted",
                                                         timer: 1200,
                                                         showConfirmButton: false,
                                                     });

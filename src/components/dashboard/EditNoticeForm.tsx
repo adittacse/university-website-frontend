@@ -196,6 +196,9 @@ export default function EditNoticeForm({ noticeId }: Props) {
                             }
                             className="file-input file-input-bordered w-full"
                         />
+                        <p className="text-xs text-gray-500">
+                            Allowed: Image (.jpg,.jpeg,.png)
+                        </p>
                     </div>
                 </div>
 

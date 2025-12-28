@@ -5,24 +5,16 @@ type Props = {
 };
 
 export default function NoticePreview({ notice }: Props) {
-    const fileUrl = `https://university-website-backend.onrender.com/${notice?.file?.path}`;
-    // const fileUrl = `http://localhost:5002/${notice?.file?.path}`;
+    // const fileUrl = `https://university-website-backend.onrender.com/${notice?.file?.path}`;
+    const fileUrl = notice?.file?.url;
     const type = notice?.file?.mimetype;
 
-    // PDF preview
-    if (type === "application/pdf") {
-        return (
-            <iframe
-                src={fileUrl}
-                className="w-full h-[600px] border rounded"
-            />
-        );
-    }
 
     // Image preview
     if (type?.startsWith("image/")) {
         return (
             <div className="border rounded bg-neutral-800 p-2 max-h-[500px] overflow-y-auto">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                     src={fileUrl}
                     alt="Notice preview"

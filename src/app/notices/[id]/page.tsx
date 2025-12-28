@@ -7,7 +7,6 @@ import NoticePreview from "@/components/notice/NoticePreview";
 import SectionLoader from "@/components/ui/SectionLoader";
 import NoticeMetaTable from "@/components/notice/NoticeMetaTable";
 import Footer from "@/components/Footer";
-import Link from "next/link";
 
 export default function NoticeDetailsPage() {
     const params = useParams();
@@ -63,8 +62,6 @@ export default function NoticeDetailsPage() {
         return <p>Notice couldn&#39;t loaded!</p>
     }
 
-    // const notice = data;
-
     return (
         <>
             <Navbar />
@@ -88,15 +85,16 @@ export default function NoticeDetailsPage() {
                     </div>
 
                     <div className="flex justify-center mt-10">
-                        <Link
-                            href={`https://university-website-backend.onrender.com/${notice?.file?.path}`}
-                            // href={`http://localhost:5002/${notice.file.path}`}
-                            download={notice?.file?.filename || "notice-file"}
+                        <a
+                            href={notice?.file?.url}
+                            download
                             target="_blank"
+                            rel="noopener noreferrer"
                             className="btn btn-primary"
                         >
-                            Download File
-                        </Link>
+                            ⬇️ Download Notice
+                        </a>
+
                     </div>
                 </div>
             </div>
