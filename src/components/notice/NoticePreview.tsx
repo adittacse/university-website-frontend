@@ -1,11 +1,13 @@
-interface Props {
-    notice: any;
-}
+import { Notice } from "@/types/notice";
+
+type Props = {
+    notice: Notice;
+};
 
 export default function NoticePreview({ notice }: Props) {
-    // const fileUrl = `https://university-website-backend.onrender.com/${notice.file.path}`;
-    const fileUrl = `http://localhost:5002/${notice.file.path}`;
-    const type = notice.file.mimetype;
+    // const fileUrl = `https://university-website-backend.onrender.com/${notice?.file?.path}`;
+    const fileUrl = `http://localhost:5002/${notice?.file?.path}`;
+    const type = notice?.file?.mimetype;
 
     // PDF preview
     if (type === "application/pdf") {
@@ -18,13 +20,15 @@ export default function NoticePreview({ notice }: Props) {
     }
 
     // Image preview
-    if (type.startsWith("image/")) {
+    if (type?.startsWith("image/")) {
         return (
-            <img
-                src={fileUrl}
-                alt="Notice preview"
-                className="max-w-full border rounded"
-            />
+            <div className="border rounded bg-neutral-800 p-2 max-h-[500px] overflow-y-auto">
+                <img
+                    src={fileUrl}
+                    alt="Notice preview"
+                    className="w-10/12 mx-auto object-contain rounded"
+                />
+            </div>
         );
     }
 
