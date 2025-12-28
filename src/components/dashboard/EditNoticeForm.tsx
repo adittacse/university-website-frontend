@@ -135,7 +135,7 @@ export default function EditNoticeForm({ noticeId }: Props) {
         }
     };
 
-    if (!title || !description || !selectedCategories) {
+    if (!title || !selectedCategories) {
         return (
             <div>
                 <h1 className="text-2xl font-bold mb-10">Edit Notice</h1>
