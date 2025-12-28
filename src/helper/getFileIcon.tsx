@@ -5,7 +5,13 @@ import {
     FaFileAlt,
 } from "react-icons/fa";
 
-export const getFileIcon = (file: { filename: string; path: string; mimetype: string; size: number } | undefined) => {
+export const getFileIcon = (file: {
+    originalname: string;
+    filename: string;
+    url: string;
+    mimetype: string;
+    size: number
+} | undefined) => {
     if (!file) {
         return <FaFileAlt className="text-gray-400" />;
     }
