@@ -33,7 +33,6 @@ export default function AdminNoticesPage() {
             search,
             isDeleted,
         });
-        // console.log(res);
         setData(res);
     }, [page, search, isDeleted]);
 
