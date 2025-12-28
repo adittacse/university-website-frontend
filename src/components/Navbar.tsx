@@ -46,7 +46,7 @@ export default function Navbar() {
             <NavItem href="/contact">Contact</NavItem>
         </li>
         {
-            user && <li>
+            user?.role?.name === "admin" && <li>
                 <NavItem href="/dashboard">Dashboard</NavItem>
             </li>
         }

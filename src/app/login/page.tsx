@@ -33,7 +33,6 @@ export default function LoginPage() {
                     router.push("/");
                 })
         } catch (error: any) {
-            console.log(error);
             await Swal.fire(
                 "Error",
                 error?.response?.data?.message || "Login failed",

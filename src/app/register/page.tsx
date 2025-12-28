@@ -24,7 +24,6 @@ export default function RegisterPage() {
             await Swal.fire("Success", "Account created", "success");
             router.push("/login");
         } catch (error: any) {
-            console.log(error)
             await Swal.fire(
                 "Error",
                 error?.response?.data?.message || "Registration failed",
