@@ -21,7 +21,6 @@ export default function AuditLogsPage() {
 
     const { admins, loading: adminLoading } = useAdmins();
     const { data, loading } = useAuditLogs(filters);
-    const logs = data?.data || [];
     const pagination = data?.pagination;
 
     if (loading || adminLoading) {

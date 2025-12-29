@@ -12,7 +12,7 @@ export default function Pagination({ page, totalPages, onPageChange }: Paginatio
     }
 
     return (
-        <div className="flex justify-between items-center mt-6">
+        <div className="flex justify-end items-center gap-5 mt-6">
 
             <button
                 className="btn btn-outline btn-sm"
