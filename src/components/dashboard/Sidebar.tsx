@@ -39,6 +39,9 @@ export default function Sidebar() {
                         <NavItem href="/dashboard">Overview</NavItem>
                     </li>
                     <li>
+                        <NavItem href="/dashboard/audit-logs">Audit Logs</NavItem>
+                    </li>
+                    <li>
                         <NavItem href="/dashboard/notices">All Notice</NavItem>
                     </li>
                     <li>
