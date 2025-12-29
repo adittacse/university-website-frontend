@@ -40,7 +40,9 @@ export default function AdminUsersPage() {
     const handleRoleChange = async (user: User, newRoleId: string) => {
         const oldRoleId = user?.role?._id;
 
-        if (newRoleId === oldRoleId) return;
+        if (newRoleId === oldRoleId) {
+            return;
+        }
 
         const result = await Swal.fire({
             title: "Change user role?",

@@ -6,11 +6,12 @@ import { useAuditLogs } from "@/hooks/useAuditLogs";
 import { useAdmins } from "@/hooks/useAdmins";
 import SectionLoader from "@/components/ui/SectionLoader";
 import { Log } from "@/types/log";
+import Pagination from "@/components/ui/Pagination";
 
 export default function AuditLogsPage() {
     const [filters, setFilters] = useState({
         page: 1,
-        limit: 20,
+        limit: 10,
         action: "",
         admin: "",
         targetType: "",
@@ -20,6 +21,8 @@ export default function AuditLogsPage() {
 
     const { admins, loading: adminLoading } = useAdmins();
     const { data, loading } = useAuditLogs(filters);
+    const logs = data?.data || [];
+    const pagination = data?.pagination;
 
     if (loading || adminLoading) {
         return <SectionLoader />;
@@ -123,6 +126,14 @@ export default function AuditLogsPage() {
                     </button>
                 </div>
 
+                <Pagination
+                    page={pagination?.page}
+                    totalPages={pagination?.totalPages}
+                    onPageChange={(newPage) =>
+                        setFilters({ ...filters, page: newPage })
+                    }
+                />
+
                 {/* 📋 TABLE */}
                 <div className="overflow-x-auto bg-base-100 shadow rounded">
                     <table className="table table-zebra">
@@ -162,6 +173,14 @@ export default function AuditLogsPage() {
                         </tbody>
                     </table>
                 </div>
+
+                <Pagination
+                    page={pagination?.page}
+                    totalPages={pagination?.totalPages}
+                    onPageChange={(newPage) =>
+                        setFilters({ ...filters, page: newPage })
+                    }
+                />
 
             </div>
         </DashboardLayout>
