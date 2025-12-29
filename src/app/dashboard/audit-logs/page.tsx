@@ -43,10 +43,14 @@ export default function AuditLogsPage() {
                         }
                     >
                         <option value="">All Actions</option>
-                        <option value="NOTICE_CREATE">NOTICE_CREATE</option>
-                        <option value="NOTICE_UPDATE">NOTICE_UPDATE</option>
-                        <option value="NOTICE_DELETE">NOTICE_DELETE</option>
-                        <option value="NOTICE_RESTORE">NOTICE_RESTORE</option>
+                        <option value="NOTICE_CREATE">Notice Create</option>
+                        <option value="NOTICE_UPDATE">Notice Update</option>
+                        <option value="NOTICE_DELETE">Notice Delete</option>
+                        <option value="NOTICE_RESTORE">Notice Restore</option>
+                        <option value="NOTICE_PERMANENT_DELETE">Notice Permanent Delete</option>
+                        <option value="NOTICE_VIEW">Notice View</option>
+                        <option value="NOTICE_DOWNLOAD">Notice Download</option>
+                        <option value="USER_ROLE_CHANGE">User Role Change</option>
                     </select>
 
                     {/* Admin */}

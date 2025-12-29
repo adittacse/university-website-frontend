@@ -20,17 +20,11 @@ export default function Sidebar() {
         <aside className="w-64 bg-base-100 border-r hidden md:block">
             <div className="p-4 border-b">
                 <Link href="/" className="font-bold text-xl flex items-center gap-2 mb-5">
-                    <span className="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-white">
-                        UWB
+                    <span className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white">
+                        UD
                     </span>
-                    <span>University Website <br/>Dashboard</span>
+                    <span>XYZ University <br/>Dashboard</span>
                 </Link>
-
-                {/*<p className="text-xs text-gray-500 mt-1">*/}
-                {/*    {role && role.toUpperCase()}*/}
-                {/*    {isPremium && " • PREMIUM"}*/}
-                {/*    {isBlocked && " • BLOCKED"}*/}
-                {/*</p>*/}
             </div>
 
             <nav className="p-4">
