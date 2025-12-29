@@ -50,8 +50,6 @@ export default function AuditLogsPage() {
                         <option value="NOTICE_DELETE">Notice Delete</option>
                         <option value="NOTICE_RESTORE">Notice Restore</option>
                         <option value="NOTICE_PERMANENT_DELETE">Notice Permanent Delete</option>
-                        <option value="NOTICE_VIEW">Notice View</option>
-                        <option value="NOTICE_DOWNLOAD">Notice Download</option>
                         <option value="USER_ROLE_CHANGE">User Role Change</option>
                     </select>
 
@@ -141,6 +139,7 @@ export default function AuditLogsPage() {
                             <th>Sl.</th>
                             <th>Admin</th>
                             <th>Action</th>
+                            <th>Details</th>
                             <th>Target</th>
                             <th>Date</th>
                         </tr>
@@ -156,7 +155,40 @@ export default function AuditLogsPage() {
                                     </div>
                                 </td>
                                 <td className="capitalize">
-                                    {log?.action?.toLowerCase().split("_").join(" ")}
+                                    <p>{log?.action?.toLowerCase().split("_").join(" ")}</p>
+                                </td>
+                                <td>
+                                    {
+                                        log?.action === "USER_ROLE_CHANGE" && <>
+                                            <p>{log?.meta?.userEmail}</p>
+                                            <p>{log?.meta?.oldRole} → {log?.meta?.newRole}</p>
+                                        </>
+                                    }
+                                    {
+                                        log?.action === "NOTICE_CREATE" && <>
+                                            <p>{log?.meta?.title}</p>
+                                        </>
+                                    }
+                                    {
+                                        log?.action === "NOTICE_UPDATE" && <>
+                                            <p>{log?.meta?.title}</p>
+                                        </>
+                                    }
+                                    {
+                                        log?.action === "NOTICE_DELETE" && <>
+                                            <p>{log?.meta?.title}</p>
+                                        </>
+                                    }
+                                    {
+                                        log?.action === "NOTICE_RESTORE" && <>
+                                            <p>{log?.meta?.title}</p>
+                                        </>
+                                    }
+                                    {
+                                        log?.action === "NOTICE_PERMANENT_DELETE" && <>
+                                            <p>{log?.meta?.title}</p>
+                                        </>
+                                    }
                                 </td>
                                 <td>{log?.targetType}</td>
                                 <td>

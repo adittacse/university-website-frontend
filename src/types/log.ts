@@ -5,6 +5,13 @@ export type Log = {
         name: string;
         email: string;
     }
+    meta: {
+        newRole?: string;
+        oldRole?: string;
+        username?: string;
+        userEmail?: string;
+        title?: string;
+    }
     action: string;
     targetedId?: string;
     targetType: string;
