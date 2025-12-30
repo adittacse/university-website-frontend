@@ -7,6 +7,7 @@ import NoticePreview from "@/components/notice/NoticePreview";
 import SectionLoader from "@/components/ui/SectionLoader";
 import NoticeMetaTable from "@/components/notice/NoticeMetaTable";
 import Footer from "@/components/Footer";
+import { downloadNotice } from "@/services/notice.service";
 
 export default function NoticeDetailsPage() {
     const params = useParams();
@@ -85,16 +86,12 @@ export default function NoticeDetailsPage() {
                     </div>
 
                     <div className="flex justify-center mt-10">
-                        <a
-                            href={notice?.file?.url}
-                            download
-                            target="_blank"
-                            rel="noopener noreferrer"
+                        <button
                             className="btn btn-primary"
+                            onClick={() => downloadNotice(notice?._id, notice?.file?.originalname)}
                         >
                             ⬇️ Download Notice
-                        </a>
-
+                        </button>
                     </div>
                 </div>
             </div>

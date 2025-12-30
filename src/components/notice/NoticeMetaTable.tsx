@@ -7,14 +7,14 @@ type Props = {
 
 export default function NoticeMetaTable({ notice }: Props) {
     const rows = [
-        // {
-        //     label: "Downloads",
-        //     value: notice.downloadCount,
-        // },
-        // {
-        //     label: "Views",
-        //     value: notice.viewCount,
-        // },
+        {
+            label: "Downloads",
+            value: notice.downloadCount,
+        },
+        {
+            label: "Views",
+            value: notice.viewCount,
+        },
         {
             label: "File Name",
             value: notice.file?.originalname ?? "—",
