@@ -1,34 +1,29 @@
 export type DashboardData = {
-    metrics: {
-        notices: {
-            total: number;
-            active: number;
-            deleted: number;
-        };
-        files: {
-            totalDownloads: number;
-            totalViews: number;
-        };
-        users: {
-            total: number;
-        };
-    };
+    success: boolean;
+
     stats: {
-        mostDownloadedNotice: {
-            _id: string;
-            title: string;
-            downloadCount: number;
-        } | null;
-        mostViewedNotice: {
-            _id: string;
-            title: string;
-            viewCount: number;
-        } | null;
+        totalUsers: number;
+        totalNotices: number;
+        activeNotices: number;
+        deletedNotices: number;
+        totalDownloads: number;
+        totalViews: number;
     };
+
+    mostDownloadedNotice: {
+        title: string;
+        downloads: number;
+    } | null;
+
+    mostViewedNotice: {
+        title: string;
+        views: number;
+    } | null;
+
     analytics: {
-        downloadsLast7Days: {
-            date: string;
-            count: number;
-        }[];
-    };
+        date: string;
+        totalNotices: number;
+        totalDownloads: number;
+        totalViews: number;
+    }[];
 };
