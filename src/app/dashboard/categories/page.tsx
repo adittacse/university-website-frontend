@@ -10,6 +10,7 @@ import {
     deleteCategory,
 } from "@/services/category.service";
 import { Category } from "@/types/category";
+import SectionLoader from "@/components/ui/SectionLoader";
 
 export default function AdminCategoriesPage() {
     const [categories, setCategories] = useState<Category[]>([]);
@@ -38,7 +39,9 @@ export default function AdminCategoriesPage() {
     };
 
     const bulkDelete = async () => {
-        if (!confirm("Delete selected categories?")) return;
+        if (!confirm("Delete selected categories?")) {
+            return;
+        }
 
         await Promise.all(selectedIds.map(id => deleteCategory(id)));
         loadData();

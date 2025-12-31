@@ -24,7 +24,12 @@ export default function AuditLogsPage() {
     const pagination = data?.pagination;
 
     if (loading || adminLoading) {
-        return <SectionLoader />;
+        return (
+            <DashboardLayout>
+                <h1 className="text-2xl font-bold mb-10">Audit Logs</h1>
+                <SectionLoader />
+            </DashboardLayout>
+        );
     }
 
     return (

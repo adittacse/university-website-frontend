@@ -4,3 +4,11 @@ export type Role = {
     createdAt?: string;
     updatedAt?: string;
 };
+
+export type UserRole =
+    | "admin"
+    | "teacher"
+    | "student"
+    | "staff"
+    | "moderator"
+    | "super_admin";

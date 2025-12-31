@@ -22,11 +22,6 @@ export default function DashboardOverviewPage() {
     const [data, setData] = useState<DashboardData | null>(null);
     const [loading, setLoading] = useState(false);
 
-    // useEffect(() => {
-    //     setData(null);
-    //     getAdminDashboard(days).then(setData);
-    // }, [days]);
-
     useEffect(() => {
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setLoading(true);
@@ -64,25 +59,25 @@ export default function DashboardOverviewPage() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
                 <StatCard
                     title="Total Users"
-                    value={stats.totalUsers}
+                    value={stats?.totalUsers}
                     link="/dashboard/users"
                 />
 
                 <StatCard
                     title="Total Notices"
-                    value={stats.totalNotices}
+                    value={stats?.totalNotices}
                     link="/dashboard/notices"
                 />
 
                 <StatCard
                     title="Active Notices"
-                    value={stats.activeNotices}
+                    value={stats?.activeNotices}
                     link="/dashboard/notices"
                 />
 
                 <StatCard
                     title="Deleted Notices"
-                    value={stats.deletedNotices}
+                    value={stats?.deletedNotices}
                     link="/dashboard/notices?tab=trash"
                 />
             </div>
@@ -91,11 +86,11 @@ export default function DashboardOverviewPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <MetricBox
                     title="Total Downloads"
-                    value={stats.totalDownloads}
+                    value={stats?.totalDownloads}
                 />
                 <MetricBox
                     title="Total Views"
-                    value={stats.totalViews}
+                    value={stats?.totalViews}
                 />
             </div>
 
@@ -109,10 +104,10 @@ export default function DashboardOverviewPage() {
 
                         {mostDownloadedNotice ? <>
                             <p className="font-medium">
-                                {mostDownloadedNotice.title}
+                                {mostDownloadedNotice?.title}
                             </p>
                             <p className="font-medium">
-                                Total Downloads: <span className="font-bold">{mostDownloadedNotice.downloads}</span>
+                                Total Downloads: <span className="font-bold">{mostDownloadedNotice?.downloads}</span>
                             </p>
                         </> : (
                             <p className="text-gray-500">
@@ -130,10 +125,10 @@ export default function DashboardOverviewPage() {
 
                         {mostViewedNotice ? <>
                             <p className="font-medium">
-                                {mostViewedNotice.title}
+                                {mostViewedNotice?.title}
                             </p>
                             <p className="font-medium">
-                                Total Views: <span className="font-bold">{mostViewedNotice.views}</span>
+                                Total Views: <span className="font-bold">{mostViewedNotice?.views}</span>
                             </p>
                         </> : (
                             <p className="text-gray-500">

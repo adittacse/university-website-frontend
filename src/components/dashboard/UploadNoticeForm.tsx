@@ -5,6 +5,8 @@ import { buildIndentedCategories } from "@/utils/categoryTree";
 import api from "@/lib/axios";
 import { Category } from "@/types/category";
 import Swal from "sweetalert2";
+import SectionLoader from "@/components/ui/SectionLoader";
+import DashboardLayout from "@/components/dashboard/DashboardLayout";
 
 type Role = {
     _id: string;
@@ -27,10 +29,11 @@ export default function UploadNoticeForm() {
 
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-    /* ================= FETCH CATEGORIES & ROLES ================= */
+
     useEffect(() => {
         const fetchData = async () => {
             try {
+                setLoading(true);
                 const [catRes, roleRes] = await Promise.all([
                     api.get("/categories"),
                     api.get("/roles"),
@@ -40,6 +43,8 @@ export default function UploadNoticeForm() {
                 setRoles(roleRes.data);
             } catch (error) {
                 console.error(error);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -130,7 +135,12 @@ export default function UploadNoticeForm() {
         }
     };
 
-    /* ================= UI ================= */
+    if (loading) {
+        return <>
+            <h1 className="text-2xl font-bold mb-10">Upload Notice</h1>
+            <SectionLoader />
+        </>;
+    }
     return (
         <form
             onSubmit={handleSubmit}

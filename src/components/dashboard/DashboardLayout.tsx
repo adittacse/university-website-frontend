@@ -1,43 +1,46 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Sidebar from "./Sidebar";
-import GlobalLoader from "@/components/ui/GlobalLoader";
-import { useRouter } from "next/navigation";
-import api from "@/lib/axios";
+// import GlobalLoader from "@/components/ui/GlobalLoader";
 import SectionLoader from "@/components/ui/SectionLoader";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import type { UserRole } from "@/types/role";
 
 type Props = {
     children: React.ReactNode;
-}
+};
 
 export default function DashboardLayout({ children }: Props) {
-    // const { loading } = useLoading();
     const router = useRouter();
-    const [loading, setLoading] = useState(true);
+    const { data: session, status } = useSession();
+
+    // Dashboard access roles
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const allowedRoles: UserRole[] = ["admin", "teacher"];
 
     useEffect(() => {
-        const checkAdmin = async () => {
-            try {
-                const res = await api.get("/auth/me");
+        if (status === "loading") {
+            return;
+        }
 
-                // 🔐 role check
-                if (res.data?.role?.name !== "admin") {
-                    router.replace("/"); // or /notices
-                    return;
-                }
+        // Not logged in
+        if (!session) {
+            router.replace("/login");
+            return;
+        }
 
-                setLoading(false);
-            } catch (error) {
-                // not logged in
-                router.replace("/login");
-            }
-        };
+        // Role not allowed
+        if (!allowedRoles.includes(session.user.role)) {
+            router.replace("/");
+            return;
+        }
+    }, [session, status, router, allowedRoles]);
 
-        checkAdmin();
-    }, [router]);
-
-    if (loading) {
+    // 🔄 Auth check loader
+    if (status === "loading" || !session) {
         return (
             <div className="min-h-screen flex items-center justify-center">
                 <SectionLoader />
@@ -47,11 +50,12 @@ export default function DashboardLayout({ children }: Props) {
 
     return (
         <div className="flex min-h-screen bg-base-200">
-            <Sidebar/>
+            {/* Sidebar */}
+            <Sidebar role={session.user.role} />
 
             {/* Main Area */}
             <main className="flex-1 p-4 md:p-6">
-                {loading && <GlobalLoader />}
+                {/*<GlobalLoader />*/}
                 {children}
             </main>
         </div>

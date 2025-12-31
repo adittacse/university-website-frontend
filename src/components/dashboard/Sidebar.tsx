@@ -1,19 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import api from "@/lib/axios";
 import { NavItem } from "@/components/dashboard/NavItem";
+import { signOut } from "next-auth/react";
+import { UserRole } from "@/types/role";
 
-export default function Sidebar() {
-    const logout = async () => {
-        try {
-            await api.post("/auth/logout");
-        } catch (error) {
-            // even if backend fails, logout locally
-        }
+type SidebarProps = {
+    role: UserRole;
+};
 
-        localStorage.removeItem("token");
-        location.href = "/";
+export default function Sidebar({ role }: SidebarProps) {
+    const handleLogout = async () => {
+        await signOut({
+            callbackUrl: "/",
+        });
     };
 
     return (
@@ -29,29 +29,45 @@ export default function Sidebar() {
 
             <nav className="p-4">
                 <ul className="space-y-2">
+                    {
+                        (role === "admin" || role === "teacher") && (
+                            <li>
+                                <NavItem href="/dashboard">Overview</NavItem>
+                            </li>
+                        )
+                    }
+                    {
+                        role === "admin" && <>
+                            <li>
+                                <NavItem href="/dashboard/audit-logs">Audit Logs</NavItem>
+                            </li>
+                            <li>
+                                <NavItem href="/dashboard/notices">All Notice</NavItem>
+                            </li>
+                        </>
+                    }
+                    {
+                        (role === "admin" || role === "teacher") && (
+                            <li>
+                                <NavItem href="/dashboard/upload-notice">Upload Notice</NavItem>
+                            </li>
+                        )
+                    }
+                    {
+                        role === "admin" && <>
+                            <li>
+                                <NavItem href="/dashboard/categories">Manage Categories</NavItem>
+                            </li>
+                            <li>
+                                <NavItem href="/dashboard/roles">Manage Roles</NavItem>
+                            </li>
+                            <li>
+                                <NavItem href="/dashboard/users">Manage Users</NavItem>
+                            </li>
+                        </>
+                    }
                     <li>
-                        <NavItem href="/dashboard">Overview</NavItem>
-                    </li>
-                    <li>
-                        <NavItem href="/dashboard/audit-logs">Audit Logs</NavItem>
-                    </li>
-                    <li>
-                        <NavItem href="/dashboard/notices">All Notice</NavItem>
-                    </li>
-                    <li>
-                        <NavItem href="/dashboard/upload-notice">Upload Notice</NavItem>
-                    </li>
-                    <li>
-                        <NavItem href="/dashboard/categories">Manage Categories</NavItem>
-                    </li>
-                    <li>
-                        <NavItem href="/dashboard/roles">Manage Roles</NavItem>
-                    </li>
-                    <li>
-                        <NavItem href="/dashboard/users">Manage Users</NavItem>
-                    </li>
-                    <li>
-                        <button className="btn btn-sm btn-error btn-block mt-4" onClick={logout}>
+                        <button className="btn btn-sm btn-error btn-block mt-4" onClick={handleLogout}>
                             Logout
                         </button>
                     </li>

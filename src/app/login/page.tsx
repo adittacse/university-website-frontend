@@ -1,8 +1,9 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import api from "@/lib/axios";
+// import api from "@/lib/axios";
 import Swal from "sweetalert2";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -16,29 +17,56 @@ export default function LoginPage() {
     const { register, handleSubmit } = useForm<LoginForm>();
     const router = useRouter();
 
+    // const onSubmit = async (data: LoginForm) => {
+    //     try {
+    //         const res = await api.post("/auth/login", data);
+    //
+    //         localStorage.setItem("token", res.data.token);
+    //
+    //         await Swal.fire({
+    //             position: "top-end",
+    //             icon: "success",
+    //             title: "Logged in successfully",
+    //             showConfirmButton: false,
+    //             timer: 1500
+    //         })
+    //             .then(() => {
+    //                 router.push("/");
+    //             })
+    //     } catch (error: any) {
+    //         await Swal.fire(
+    //             "Error",
+    //             error?.response?.data?.message || "Login failed",
+    //             "error"
+    //         );
+    //     }
+    // };
+
     const onSubmit = async (data: LoginForm) => {
-        try {
-            const res = await api.post("/auth/login", data);
+        const res = await signIn("credentials", {
+            email: data.email,
+            password: data.password,
+            redirect: false,
+        });
 
-            localStorage.setItem("token", res.data.token);
-
-            await Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Logged in successfully",
-                showConfirmButton: false,
-                timer: 1500
-            })
-                .then(() => {
-                    router.push("/");
-                })
-        } catch (error: any) {
+        if (!res || res.error) {
             await Swal.fire(
                 "Error",
-                error?.response?.data?.message || "Login failed",
+                res?.error || "Login failed",
                 "error"
             );
+            return;
         }
+
+        await Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Logged in successfully",
+            showConfirmButton: false,
+            timer: 1500,
+        });
+
+        router.push("/");
     };
 
     return (

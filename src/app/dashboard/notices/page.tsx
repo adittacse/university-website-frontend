@@ -110,8 +110,7 @@ export default function AdminNoticesPage() {
     if (!data) {
         return (
             <DashboardLayout>
-                <h1 className="text-2xl font-bold mb-10">Notices</h1>
-
+                <h1 className="text-2xl font-bold mb-10">All Notice</h1>
                 <SectionLoader />
             </DashboardLayout>
         );

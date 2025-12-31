@@ -1,35 +1,19 @@
 "use client";
 
-import { NavItem } from "@/components/dashboard/NavItem";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import api from "@/lib/axios";
-import { User } from "@/types/user";
+import { NavItem } from "@/components/dashboard/NavItem";
 
 export default function Navbar() {
-    const [user, setUser] = useState<User | null>(null);
+    const { data: session, status } = useSession();
 
-    useEffect(() => {
-        api.get("/auth/me")
-            .then((res) => {
-                setUser(res.data)
-            })
-            .catch(() => {
-                setUser(null)
-            });
-    }, []);
+    const role = session?.user?.role;
+    const isAuthenticated = status === "authenticated";
 
-    const logout = async () => {
-        try {
-            await api.post("/auth/logout");
-        } catch (e) {
-            // even if backend fails, logout locally
-        }
-
-        // 🔥 MOST IMPORTANT
-        localStorage.removeItem("token");
-
-        location.href = "/";
+    const handleLogOut = async () => {
+        await signOut({
+            callbackUrl: "/",
+        });
     };
 
     const links = <>
@@ -46,7 +30,7 @@ export default function Navbar() {
             <NavItem href="/contact">Contact</NavItem>
         </li>
         {
-            user?.role?.name === "admin" && <li>
+            (role === "admin" || role === "teacher") && <li>
                 <NavItem href="/dashboard">Dashboard</NavItem>
             </li>
         }
@@ -75,10 +59,10 @@ export default function Navbar() {
                 </div>
                 <div className="navbar-end">
                     {
-                        user ? (
+                        isAuthenticated ? (
                             <button
                                 className="btn btn-sm btn-error"
-                                onClick={logout}
+                                onClick={handleLogOut}
                             >
                                 Logout
                             </button>
