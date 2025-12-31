@@ -30,9 +30,11 @@ export default function Navbar() {
             <NavItem href="/contact">Contact</NavItem>
         </li>
         {
-            (role === "admin" || role === "teacher") && <li>
-                <NavItem href="/dashboard">Dashboard</NavItem>
-            </li>
+            (role === "admin" || role === "teacher") && (
+                <li>
+                    <NavItem href="/dashboard">Dashboard</NavItem>
+                </li>
+            )
         }
     </>
 

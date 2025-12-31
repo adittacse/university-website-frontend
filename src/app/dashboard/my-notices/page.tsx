@@ -1,22 +1,21 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
+import {useCallback, useEffect, useState} from "react";
 import {
-    getAdminNotices,
-    getNoticeCounts,
-    softDeleteNotice,
-    restoreNotice,
     bulkRestoreNotice,
-    permanentDeleteNotices,
+    getMyNotices,
+    getNoticeCounts, permanentDeleteNotices,
+    restoreNotice,
+    softDeleteNotice
 } from "@/services/adminNotice.service";
-import { Notice } from "@/types/notice";
+import {Notice} from "@/types/notice";
 import Link from "next/link";
 import Swal from "sweetalert2";
-import SectionLoader from "@/components/ui/SectionLoader";
 
-export default function AdminNoticesPage() {
+const MyNotices = () => {
     const [page, setPage] = useState(1);
+    const [limit] = useState(10);
     const [search, setSearch] = useState("");
     const [isDeleted, setIsDeleted] = useState(false);
     const [bulkAction, setBulkAction] = useState("");
@@ -27,14 +26,17 @@ export default function AdminNoticesPage() {
         trash: 0,
     });
 
-    const loadData =  useCallback(async () => {
-        const res = await getAdminNotices({
+    const loadData = useCallback(async () => {
+        const res = await getMyNotices({
             page,
+            limit,
             search,
             isDeleted,
         });
+
         setData(res);
-    }, [page, search, isDeleted]);
+    }, [page, limit, search, isDeleted]);
+
 
     useEffect(() => {
         // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -56,14 +58,6 @@ export default function AdminNoticesPage() {
             console.error(err);
         }
     };
-
-    // const toggleAll = (checked: boolean) => {
-    //     if (checked) {
-    //         setSelectedIds(data.data.map((n: any) => n._id));
-    //     } else {
-    //         setSelectedIds([]);
-    //     }
-    // };
 
     const applyBulkAction = async () => {
         if (!bulkAction) {
@@ -107,18 +101,9 @@ export default function AdminNoticesPage() {
         }
     };
 
-    if (!data) {
-        return (
-            <DashboardLayout>
-                <h1 className="text-2xl font-bold mb-10">All Notice</h1>
-                <SectionLoader />
-            </DashboardLayout>
-        );
-    }
-
     return (
         <DashboardLayout>
-            <h1 className="text-2xl font-bold mb-10">All Notice</h1>
+            <h1 className="text-2xl font-bold mb-10">My Notices</h1>
 
             {/* Published / Trash tabs */}
             <div className="flex gap-4 border-b pb-5 mb-5">
@@ -183,33 +168,60 @@ export default function AdminNoticesPage() {
                 />
             </div>
 
+            {/* Pagination header */}
+            <div className="flex justify-between items-center my-5">
+                <span>{data?.pagination?.total} notices found</span>
+
+                <div className="flex gap-2">
+                    <button
+                        className="btn btn-sm"
+                        disabled={page === 1}
+                        onClick={() => setPage(p => p - 1)}
+                    >
+                        «
+                    </button>
+
+                    <span>
+                        {page} of {data?.pagination?.totalPages}
+                    </span>
+
+                    <button
+                        className="btn btn-sm"
+                        disabled={page === data?.pagination?.totalPages}
+                        onClick={() => setPage(p => p + 1)}
+                    >
+                        »
+                    </button>
+                </div>
+            </div>
+
             {/* Table */}
             <div className="overflow-x-auto bg-base-100 shadow-2xl rounded-2xl">
                 <table className="table table-zebra w-full">
                     <thead>
-                        <tr>
-                            <th>
-                                <input
-                                    type="checkbox"
-                                    checked={data?.data?.length > 0 && selectedIds.length === data.data.length}
-                                    onChange={(e) => {
-                                        if (e.target.checked) {
-                                            setSelectedIds(data.data.map((n: any) => n._id));
-                                        } else {
-                                            setSelectedIds([]);
-                                        }
-                                    }}
-                                />
-                            </th>
-                            <th>SL.</th>
-                            <th>Title</th>
-                            <th>Categories</th>
-                            <th>Roles</th>
-                            <th>Author</th>
-                            <th>Created Date</th>
-                            <th>Updated Date</th>
-                            <th>Actions</th>
-                        </tr>
+                    <tr>
+                        <th>
+                            <input
+                                type="checkbox"
+                                checked={data?.data?.length > 0 && selectedIds.length === data.data.length}
+                                onChange={(e) => {
+                                    if (e.target.checked) {
+                                        setSelectedIds(data.data.map((n: any) => n._id));
+                                    } else {
+                                        setSelectedIds([]);
+                                    }
+                                }}
+                            />
+                        </th>
+                        <th>SL.</th>
+                        <th>Title</th>
+                        <th>Categories</th>
+                        <th>Roles</th>
+                        <th>Author</th>
+                        <th>Created Date</th>
+                        <th>Updated Date</th>
+                        <th>Actions</th>
+                    </tr>
                     </thead>
 
                     <tbody>
@@ -247,7 +259,7 @@ export default function AdminNoticesPage() {
                             <td>{new Date(n?.updatedAt).toLocaleString()}</td>
                             <td className="flex items-center gap-5">
                                 <Link className="btn btn-secondary btn-sm"
-                                        href={`/notices/${n._id}`}
+                                      href={`/notices/${n._id}`}
                                 >
                                     View
                                 </Link>
@@ -335,7 +347,7 @@ export default function AdminNoticesPage() {
             </div>
 
             {/* Pagination bottom */}
-            <div className="flex justify-between items-center mt-4">
+            <div className="flex justify-between items-center mt-5">
                 <span>{data?.pagination?.total} notices found</span>
 
                 <div className="flex gap-2">
@@ -362,4 +374,6 @@ export default function AdminNoticesPage() {
             </div>
         </DashboardLayout>
     );
-}
+};
+
+export default MyNotices;

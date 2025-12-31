@@ -47,6 +47,13 @@ export default function Sidebar({ role }: SidebarProps) {
                         </>
                     }
                     {
+                        role === "teacher" && (
+                            <li>
+                                <NavItem href="/dashboard/my-notices">My Notices</NavItem>
+                            </li>
+                        )
+                    }
+                    {
                         (role === "admin" || role === "teacher") && (
                             <li>
                                 <NavItem href="/dashboard/upload-notice">Upload Notice</NavItem>
