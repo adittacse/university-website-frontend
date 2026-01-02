@@ -3,7 +3,7 @@ const ContactHeader = () => {
         <section className="bg-base-200 py-14">
             <div className="max-w-7xl mx-auto px-6 text-center">
                 <h1 className="text-4xl font-bold mb-3">
-                    Contact Us
+                   <span className="text-primary"> Contact</span> Us
                 </h1>
                 <p className="text-gray-600 max-w-2xl mx-auto">
                     If you have any questions regarding notices, admissions,

@@ -9,7 +9,7 @@ import ContactForm from "@/components/contact/ContactForm";
 const ContactPage = () => {
     return (
         <>
-            <Navbar />
+            {/* <Navbar /> */}
 
             <ContactHeader />
 
@@ -26,7 +26,7 @@ const ContactPage = () => {
                 </div>
             </section>
 
-            <Footer />
+            {/* <Footer /> */}
         </>
     );
 };

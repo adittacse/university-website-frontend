@@ -17,10 +17,10 @@ export default function NoticesPage() {
 
     return (
         <>
-            <Navbar/>
+            {/* <Navbar/> */}
 
             <div className="p-6 max-w-7xl mx-auto">
-                <h1 className="text-2xl font-bold text-center mb-10">All Notice</h1>
+                <h1 className="text-3xl font-bold text-center mb-10">All <span className="text-primary">Notice</span></h1>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
                     {
@@ -57,7 +57,7 @@ export default function NoticesPage() {
                 </div>
             </div>
 
-            <Footer />
+            {/* <Footer /> */}
         </>
     );
 }

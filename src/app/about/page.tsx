@@ -11,7 +11,7 @@ import WhyChooseUs from "@/components/about/WhyChooseUs";
 const AboutPage = () => {
     return (
         <>
-            <Navbar />
+            {/* <Navbar /> */}
 
             <AboutHeader />
             <AboutOverview />
@@ -19,7 +19,7 @@ const AboutPage = () => {
             <CoreValues />
             <WhyChooseUs />
 
-            <Footer />
+            {/* <Footer /> */}
         </>
     );
 };

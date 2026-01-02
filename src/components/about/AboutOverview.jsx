@@ -1,9 +1,9 @@
 const AboutOverview = () => {
     return (
         <section className="py-14">
-            <div className="max-w-6xl mx-auto px-6">
+            <div className="max-w-7xl mx-auto px-6">
                 <h2 className="text-3xl font-semibold mb-6">
-                    University Overview
+                   <span className="text-primary">University</span> Overview
                 </h2>
 
                 <p className="text-gray-700 leading-relaxed mb-4">

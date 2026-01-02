@@ -24,7 +24,7 @@ export default function NoticeCard({ notice }: Props) {
             <div className="flex-1 space-y-2">
                 {/* Title */}
                 <Link href={`/notices/${_id}`}>
-                    <h2 className="text-red-700 font-semibold leading-snug hover:underline">
+                    <h2 className="text-primary font-semibold leading-snug hover:underline">
                         {title}
                     </h2>
                 </Link>

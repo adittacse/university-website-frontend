@@ -1,26 +1,49 @@
 const DepartmentsSection = () => {
-    return (
-        <section className="py-14">
-            <div className="max-w-7xl mx-auto px-6">
-                <h3 className="text-3xl font-bold mb-8 text-center">
-                    Our Departments
-                </h3>
+  const departments = [
+    "CSE",
+    "EEE",
+    "BBA",
+    "English",
+    "Economics",
+    "Mathematics",
+  ];
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {["CSE", "EEE", "BBA", "English", "Economics", "Mathematics"].map(dep => (
-                        <div
-                            key={dep}
-                            className="card bg-base-100 shadow hover:shadow-md transition"
-                        >
-                            <div className="card-body text-center">
-                                <h4 className="text-xl font-semibold">{dep}</h4>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+  return (
+    <section className="py-16 bg-base-200">
+      <div className="max-w-7xl mx-auto px-6">
+
+        {/* Section Title */}
+        <h3 className="text-3xl md:text-4xl font-bold text-center mb-10">
+          Our <span className="text-primary">Departments</span>
+        </h3>
+
+        {/* Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {departments.map((dep) => (
+            <div
+              key={dep}
+              className="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+            >
+              <div className="card-body text-center">
+
+                {/* Department Name */}
+                <h4 className="text-xl font-semibold text-primary mb-1">
+                  {dep}
+                </h4>
+
+                {/* Sub text */}
+                <p className="text-sm text-gray-500">
+                  Department of {dep}
+                </p>
+
+              </div>
             </div>
-        </section>
-    );
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
 };
 
 export default DepartmentsSection;

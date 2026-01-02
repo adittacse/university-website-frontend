@@ -2,13 +2,13 @@ const ContactInformation = () => {
     return (
         <div className="space-y-6">
             <h2 className="text-2xl font-semibold mb-4">
-                University Contact Information
+                <span className="text-primary">University </span>Contact Information
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="card bg-base-100 shadow">
                     <div className="card-body">
-                        <h3 className="font-semibold text-lg">
+                        <h3 className="font-semibold text-lg text-primary">
                             📍 Address
                         </h3>
                         <p className="text-gray-600">
@@ -21,7 +21,7 @@ const ContactInformation = () => {
 
                 <div className="card bg-base-100 shadow">
                     <div className="card-body">
-                        <h3 className="font-semibold text-lg">
+                        <h3 className="font-semibold text-lg text-primary">
                             📞 Phone
                         </h3>
                         <p className="text-gray-600">
@@ -31,9 +31,9 @@ const ContactInformation = () => {
                     </div>
                 </div>
 
-                <div className="card bg-base-100 shadow">
+                <div className="card bg-base-100 shadow ">
                     <div className="card-body">
-                        <h3 className="font-semibold text-lg">
+                        <h3 className="font-semibold text-lg text-primary">
                             📧 Email
                         </h3>
                         <p className="text-gray-600">
@@ -45,7 +45,7 @@ const ContactInformation = () => {
 
                 <div className="card bg-base-100 shadow">
                     <div className="card-body">
-                        <h3 className="font-semibold text-lg">
+                        <h3 className="font-semibold text-lg text-primary">
                             🕒 Office Hours
                         </h3>
                         <p className="text-gray-600">

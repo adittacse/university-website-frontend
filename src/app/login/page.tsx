@@ -3,107 +3,87 @@
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-// import api from "@/lib/axios";
 import Swal from "sweetalert2";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import Link from "next/link";
 
 type LoginForm = {
-    email: string;
-    password: string;
+  email: string;
+  password: string;
 };
 
 export default function LoginPage() {
-    const { register, handleSubmit } = useForm<LoginForm>();
-    const router = useRouter();
+  const { register, handleSubmit } = useForm<LoginForm>();
+  const router = useRouter();
 
-    // const onSubmit = async (data: LoginForm) => {
-    //     try {
-    //         const res = await api.post("/auth/login", data);
-    //
-    //         localStorage.setItem("token", res.data.token);
-    //
-    //         await Swal.fire({
-    //             position: "top-end",
-    //             icon: "success",
-    //             title: "Logged in successfully",
-    //             showConfirmButton: false,
-    //             timer: 1500
-    //         })
-    //             .then(() => {
-    //                 router.push("/");
-    //             })
-    //     } catch (error: any) {
-    //         await Swal.fire(
-    //             "Error",
-    //             error?.response?.data?.message || "Login failed",
-    //             "error"
-    //         );
-    //     }
-    // };
+  const onSubmit = async (data: LoginForm) => {
+    const res = await signIn("credentials", {
+      email: data.email,
+      password: data.password,
+      redirect: false,
+    });
 
-    const onSubmit = async (data: LoginForm) => {
-        const res = await signIn("credentials", {
-            email: data.email,
-            password: data.password,
-            redirect: false,
-        });
+    if (!res || res.error) {
+      await Swal.fire("Error", res?.error || "Login failed", "error");
+      return;
+    }
 
-        if (!res || res.error) {
-            await Swal.fire(
-                "Error",
-                res?.error || "Login failed",
-                "error"
-            );
-            return;
-        }
+    await Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Logged in successfully",
+      showConfirmButton: false,
+      timer: 1500,
+    });
 
-        await Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "Logged in successfully",
-            showConfirmButton: false,
-            timer: 1500,
-        });
+    router.push("/");
+  };
 
-        router.push("/");
-    };
+  return (
+    <div className="py-22 flex items-center justify-center px-4 ">
+      <div className="card bg-base-100 w-full max-w-sm shadow-xl border border-base-300">
+        <div className="card-body">
 
-    return (
-        <div>
-            <Navbar />
+          {/* Title */}
+          <h3 className="text-3xl font-bold text-center text-primary mb-1">
+            Login
+          </h3>
+          <p className="text-center text-sm text-gray-500 mb-4">
+            Welcome back! Please login to your account
+          </p>
 
-            <div className="flex my-5 justify-center items-center">
-                <div className="card bg-base-100 w-full max-w-sm shadow-2xl shrink-0">
-                    <div className="card-body">
-                        <h3 className="text-3xl font-bold text-center mb-1">Login Here!</h3>
+          {/* Form */}
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <fieldset className="flex flex-col gap-y-4">
 
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                            <fieldset className="fieldset flex flex-col gap-y-5">
-                                <input
-                                    type="email"
-                                    placeholder="Email"
-                                    className="input input-bordered w-full"
-                                    {...register("email", { required: true })}
-                                />
+              <input
+                type="email"
+                placeholder="Email address"
+                className="input input-bordered w-full focus:border-primary"
+                {...register("email", { required: true })}
+              />
 
-                                <input
-                                    type="password"
-                                    placeholder="Password"
-                                    className="input input-bordered w-full"
-                                    {...register("password", { required: true })}
-                                />
+              <input
+                type="password"
+                placeholder="Password"
+                className="input input-bordered w-full focus:border-primary"
+                {...register("password", { required: true })}
+              />
 
-                                <button className="btn btn-primary w-full">
-                                    Login
-                                </button>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
-            </div>
+              <button className="btn btn-primary w-full mt-2">
+                Login
+              </button>
 
-            <Footer />
+            </fieldset>
+          </form>
+          {/* Register link */}
+          <p className="text-center text-sm mt-4">
+            Don’t have an account?{" "}
+            <Link href="/register" className="text-primary font-semibold hover:underline">
+              Register
+            </Link>
+          </p>
         </div>
-    );
+      </div>
+    </div>
+  );
 }

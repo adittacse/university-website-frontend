@@ -50,7 +50,7 @@ export default function AdminCategoriesPage() {
     return (
         <>
             <DashboardLayout>
-                <h1 className="text-2xl font-bold mb-10">Manage Categories</h1>
+                <h1 className="text-2xl font-bold mb-10">Manage <span className="text-primary">Categories</span></h1>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 items-start gap-10">
                     {/* LEFT: Add category */}
@@ -83,80 +83,120 @@ export default function AdminCategoriesPage() {
                             />
                         </div>
 
-                        {/* Table */}
-                        <div className="overflow-x-auto bg-base-100 shadow-2xl rounded-2xl">
-                            <table className="table table-zebra w-full">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            <input
-                                                type="checkbox"
-                                                checked={
-                                                    categories?.length > 0 &&
-                                                    selectedIds?.length === categories?.length
-                                                }
-                                                onChange={e => toggleAll(e.target.checked)}
-                                            />
-                                        </th>
-                                        <th>Name</th>
-                                        <th>Parent</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
+                      {/* TABLE WRAPPER */}
+<div className="bg-base-100 shadow-2xl rounded-2xl">
 
-                                <tbody>
-                                {
-                                    indentedCategories.map(cat => (
-                                        <tr key={cat._id}>
-                                            <td>
-                                                <input
-                                                    type="checkbox"
-                                                    checked={selectedIds.includes(cat._id)}
-                                                    onChange={e => {
-                                                        if (e.target.checked) {
-                                                            setSelectedIds(p => [...p, cat._id]);
-                                                        } else {
-                                                            setSelectedIds(p =>
-                                                                p.filter(id => id !== cat._id)
-                                                            );
-                                                        }
-                                                    }}
-                                                />
-                                            </td>
+  {/* ========= DESKTOP / TABLET TABLE ========= */}
+  <div className="overflow-x-auto hidden md:block">
+    <table className="table table-zebra w-full">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Parent</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
 
-                                            <td>
-                                                <span
-                                                    className="font-medium"
-                                                    style={{paddingLeft: `${(cat as any)._depth * 16}px`}}
-                                                >
-                                                    {(cat as any)._depth > 0 && "— ".repeat((cat as any)._depth)}
-                                                    {cat.name}
-                                                </span>
-                                            </td>
+      <tbody>
+        {indentedCategories.map(cat => (
+          <tr key={cat._id}>
+            <td>
+              <input
+                type="checkbox"
+                checked={selectedIds.includes(cat._id)}
+                onChange={(e) => {
+                  if (e.target.checked)
+                    setSelectedIds(p => [...p, cat._id]);
+                  else
+                    setSelectedIds(p => p.filter(id => id !== cat._id));
+                }}
+              />
+            </td>
 
-                                            <td>{cat?.parent?.name}</td>
-                                            <td className="flex items-center gap-5">
-                                                <button
-                                                    className="btn btn-sm btn-primary"
-                                                    onClick={() => setEditingCategory(cat)}
-                                                >
-                                                    Edit
-                                                </button>
-                                                <button
-                                                    className="btn btn-sm btn-error"
-                                                    onClick={() =>
-                                                        deleteCategory(cat._id).then(loadData)
-                                                    }
-                                                >
-                                                    Delete
-                                                </button>
-                                            </td>
-                                        </tr>)
-                                    )
-                                }
-                                </tbody>
-                            </table>
-                        </div>
+            <td>
+              <span
+                className="font-medium"
+                style={{ paddingLeft: `${(cat as any)._depth * 16}px` }}
+              >
+                {(cat as any)._depth > 0 && "— ".repeat((cat as any)._depth)}
+                {cat.name}
+              </span>
+            </td>
+
+            <td>{cat?.parent?.name || "-"}</td>
+
+            <td className="flex flex-wrap gap-2">
+              <button
+                className="btn btn-sm btn-primary"
+                onClick={() => setEditingCategory(cat)}
+              >
+                Edit
+              </button>
+
+              <button
+                className="btn btn-sm btn-error"
+                onClick={() => deleteCategory(cat._id).then(loadData)}
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  {/* ========= MOBILE CARD VIEW ========= */}
+  <div className="md:hidden space-y-3 p-2">
+    {indentedCategories.map((cat, index) => (
+      <div
+        key={cat._id}
+        className="border border-gray-100 shadow-md  rounded-xl p-3 bg-base-200 space-y-2"
+      >
+        <div className="flex justify-between items-center">
+          <span className="font-semibold">
+            {(cat as any)._depth > 0 && "— ".repeat((cat as any)._depth)}
+            {cat.name}
+          </span>
+
+          <input
+            type="checkbox"
+            checked={selectedIds.includes(cat._id)}
+            onChange={(e) => {
+              if (e.target.checked)
+                setSelectedIds(p => [...p, cat._id]);
+              else
+                setSelectedIds(p => p.filter(id => id !== cat._id));
+            }}
+          />
+        </div>
+
+        <p className="text-sm">
+          <span className="font-semibold">Parent:</span>{" "}
+          {cat?.parent?.name || "None"}
+        </p>
+
+        <div className="flex gap-2 mt-2">
+          <button
+            className="btn btn-sm btn-primary flex-1 "
+            onClick={() => setEditingCategory(cat)}
+          >
+            Edit
+          </button>
+
+          <button
+            className="btn btn-sm btn-error flex-1 "
+            onClick={() => deleteCategory(cat._id).then(loadData)}
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
 
                         {categories.length === 0 && (
                             <div className="text-center text-gray-500 py-6">

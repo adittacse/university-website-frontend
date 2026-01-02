@@ -8,6 +8,7 @@ import SectionLoader from "@/components/ui/SectionLoader";
 import NoticeMetaTable from "@/components/notice/NoticeMetaTable";
 import Footer from "@/components/Footer";
 import { downloadNotice } from "@/services/notice.service";
+import { IoMdDownload } from "react-icons/io";
 
 export default function NoticeDetailsPage() {
     const params = useParams();
@@ -18,7 +19,7 @@ export default function NoticeDetailsPage() {
     if (loading) {
         return (
             <>
-                <Navbar />
+                {/* <Navbar /> */}
                 <div className="max-w-7xl mx-auto p-6">
                     <SectionLoader />
                 </div>
@@ -29,7 +30,7 @@ export default function NoticeDetailsPage() {
     if (error?.type === "LOGIN_REQUIRED") {
         return (
             <>
-                <Navbar />
+                
                 <div className="max-w-7xl mx-auto p-6">
                     <p className="alert alert-warning">
                         <strong>To see this notice, login first</strong>
@@ -42,7 +43,7 @@ export default function NoticeDetailsPage() {
     if (error?.type === "ROLE_RESTRICTED") {
         return (
             <>
-                <Navbar />
+         
                 <div className="max-w-7xl mx-auto p-6">
                     <div className="alert alert-info">
                         <strong>Restricted Notice</strong>
@@ -65,7 +66,7 @@ export default function NoticeDetailsPage() {
 
     return (
         <>
-            <Navbar />
+            
 
             <div className="">
                 <h1 className="text-4xl font-bold text-center bg-base-300 py-16 mb-2">
@@ -90,13 +91,13 @@ export default function NoticeDetailsPage() {
                             className="btn btn-primary"
                             onClick={() => downloadNotice(notice?._id, notice?.file?.originalname)}
                         >
-                            ⬇️ Download Notice
+                            <IoMdDownload />Download Notice
                         </button>
                     </div>
                 </div>
             </div>
 
-            <Footer />
+          
         </>
     );
 }
