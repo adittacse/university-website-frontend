@@ -5,7 +5,7 @@ const MissionVision = () => {
                 <div className="card shadow">
                     <div className="card-body">
                         <h3 className="text-2xl font-semibold mb-3">
-                            🎯 Our Mission
+                            🎯 Our <span className="text-primary">Mission</span>
                         </h3>
                         <p className="text-gray-700 leading-relaxed">
                             To deliver quality education that nurtures creativity,
@@ -18,7 +18,7 @@ const MissionVision = () => {
                 <div className="card shadow">
                     <div className="card-body">
                         <h3 className="text-2xl font-semibold mb-3">
-                            🌍 Our Vision
+                            🌍 Our <span className="text-primary">Vision</span> 
                         </h3>
                         <p className="text-gray-700 leading-relaxed">
                             To be a leading university recognized for academic

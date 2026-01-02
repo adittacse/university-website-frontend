@@ -15,8 +15,8 @@ export function NavItem({ href, children }: NavItemProps) {
     return (
         <Link
             href={href}
-            className={`btn btn-sm btn-block justify-start ${
-                isActive ? "btn-primary" : "btn-ghost"
+            className={`font-bold  ${
+                isActive ? "text-primary" : "btn-ghost"
             }`}
         >
             {children}

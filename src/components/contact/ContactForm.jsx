@@ -2,7 +2,7 @@ const ContactForm = () => {
     return (
         <div>
             <h2 className="text-2xl font-semibold mb-4">
-                Send Us a Message
+                Send Us a <span className="text-primary">Message</span>
             </h2>
 
             <div className="card bg-base-100 shadow">

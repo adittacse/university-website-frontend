@@ -137,7 +137,7 @@ export default function UploadNoticeForm() {
 
     if (loading) {
         return <>
-            <h1 className="text-2xl font-bold mb-10">Upload Notice</h1>
+            <h1 className="text-2xl font-bold mb-10">Upload <span className="text-primary">Notice</span></h1>
             <SectionLoader />
         </>;
     }
@@ -148,7 +148,7 @@ export default function UploadNoticeForm() {
         >
             {/* ================= LEFT / MAIN ================= */}
             <div className="lg:col-span-2 space-y-4">
-                <h1 className="text-2xl font-bold mb-10">Upload Notice</h1>
+                <h1 className="text-2xl font-bold mb-10">Upload <span className="text-primary">Notice</span></h1>
 
                 <div className="card bg-base-100 shadow-2xl rounded-2xl">
                     <div className="card-body space-y-4">
