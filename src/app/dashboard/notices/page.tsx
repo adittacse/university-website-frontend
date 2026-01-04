@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import {useCallback, useEffect, useState} from "react";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import {
     getAdminNotices,
@@ -10,7 +10,7 @@ import {
     bulkRestoreNotice,
     permanentDeleteNotices,
 } from "@/services/adminNotice.service";
-import { Notice } from "@/types/notice";
+import {Notice} from "@/types/notice";
 import Link from "next/link";
 import Swal from "sweetalert2";
 import SectionLoader from "@/components/ui/SectionLoader";
@@ -27,7 +27,7 @@ export default function AdminNoticesPage() {
         trash: 0,
     });
 
-    const loadData =  useCallback(async () => {
+    const loadData = useCallback(async () => {
         const res = await getAdminNotices({
             page,
             search,
@@ -38,7 +38,7 @@ export default function AdminNoticesPage() {
 
     useEffect(() => {
         // eslint-disable-next-line react-hooks/set-state-in-effect
-        loadData();
+        loadData().then();
         getNoticeCounts().then(setCounts);
     }, [loadData]);
 
@@ -111,7 +111,7 @@ export default function AdminNoticesPage() {
         return (
             <DashboardLayout>
                 <h1 className="text-2xl font-bold mb-10">All <span className="text-primary">Notice</span></h1>
-                <SectionLoader />
+                <SectionLoader/>
             </DashboardLayout>
         );
     }
@@ -183,226 +183,9 @@ export default function AdminNoticesPage() {
                 />
             </div>
 
-           {/* TABLE WRAPPER */}
-<div className="bg-base-100 shadow-2xl rounded-2xl">
-
-  {/* ================= DESKTOP / TABLET TABLE ================= */}
-  <div className="overflow-x-auto hidden md:block">
-    <table className="table table-zebra w-full">
-      <thead>
-        <tr>
-          <th></th>
-          <th>SL</th>
-          <th>Title</th>
-          <th>Categories</th>
-          <th>Roles</th>
-          <th>Author</th>
-          <th>Created</th>
-          <th>Updated</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        {data?.data?.map((n: Notice, index: number) => (
-          <tr key={n._id}>
-            <td>
-              <input
-                type="checkbox"
-                checked={selectedIds.includes(n._id)}
-                onChange={(e) => {
-                  if (e.target.checked)
-                    setSelectedIds(prev => [...prev, n._id]);
-                  else
-                    setSelectedIds(prev => prev.filter(id => id !== n._id));
-                }}
-              />
-            </td>
-
-            <td>{index + 1}</td>
-
-            <td className="font-medium">{n.title}</td>
-
-            <td>{n.categories.map((c: any) => c.name).join(", ")}</td>
-
-            <td className="capitalize">
-              {n.allowedRoles.map((c: any) => c.name).join(", ")}
-            </td>
-
-            <td>{n?.createdBy?.name}</td>
-
-            <td className="whitespace-nowrap">
-              {new Date(n?.createdAt).toLocaleString()}
-            </td>
-
-            <td className="whitespace-nowrap">
-              {new Date(n?.updatedAt).toLocaleString()}
-            </td>
-
-            <td className="flex flex-wrap gap-2">
-              <Link href={`/notices/${n._id}`}
-                className="btn btn-secondary btn-sm">
-                View
-              </Link>
-
-              {!isDeleted && (
-                <>
-                  <Link href={`/dashboard/notices/edit/${n._id}`}
-                    className="btn btn-info btn-sm">
-                    Edit
-                  </Link>
-
-                  <button
-                    className="btn btn-primary btn-sm"
-                    onClick={async () => {
-                      const result = await Swal.fire({
-                        title: "Are you sure?",
-                        text: "You will be able to restore this from Trash!",
-                        icon: "warning",
-                        showCancelButton: true,
-                        confirmButtonText: "Yes, move to Trash",
-                      });
-                      if (!result.isConfirmed) return;
-                      await softDeleteNotice(n._id);
-                      await loadData();
-                    }}
-                  >
-                    Trash
-                  </button>
-                </>
-              )}
-
-              {isDeleted && (
-                <>
-                  <button
-                    className="btn btn-primary btn-sm"
-                    onClick={() => handleRestore(n._id)}
-                  >
-                    Restore
-                  </button>
-
-                  <button
-                    className="btn btn-error btn-sm"
-                    onClick={async () => {
-                      const result = await Swal.fire({
-                        title: "Are you sure?",
-                        text: "You won't be able to revert this!",
-                        icon: "warning",
-                        showCancelButton: true,
-                        confirmButtonText: "Delete Permanently",
-                      });
-                      if (!result.isConfirmed) return;
-                      await permanentDeleteNotices([n._id]);
-                      await loadData();
-                    }}
-                  >
-                    Delete
-                  </button>
-                </>
-              )}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-
-
-  {/* ================= MOBILE CARD VIEW ================= */}
-  <div className="md:hidden space-y-3 p-2">
-    {data?.data?.map((n: Notice, index: number) => (
-      <div key={n._id}
-        className="border border-gray-100 shadow-md  rounded-xl p-3 bg-base-200 space-y-2">
-
-        <div className="flex justify-between">
-          <span className="font-bold">#{index + 1}</span>
-          <input
-            type="checkbox"
-            checked={selectedIds.includes(n._id)}
-            onChange={(e) => {
-              if (e.target.checked)
-                setSelectedIds(prev => [...prev, n._id]);
-              else
-                setSelectedIds(prev => prev.filter(id => id !== n._id));
-            }}
-          />
-        </div>
-
-        <p className="font-semibold text-lg">{n.title}</p>
-
-        <p className="text-sm">
-          <span className="font-semibold">Categories: </span>
-          {n.categories.map((c: any) => c.name).join(", ")}
-        </p>
-
-        <p className="text-sm capitalize">
-          <span className="font-semibold">Roles: </span>
-          {n.allowedRoles.map((c: any) => c.name).join(", ")}
-        </p>
-
-        <p className="text-sm">
-          <span className="font-semibold">Author: </span>
-          {n?.createdBy?.name}
-        </p>
-
-        <p className="text-xs opacity-80">
-          Created: {new Date(n?.createdAt).toLocaleString()}
-        </p>
-
-        <p className="text-xs opacity-80">
-          Updated: {new Date(n?.updatedAt).toLocaleString()}
-        </p>
-
-        <div className="flex flex-wrap gap-2 mt-2">
-          <Link href={`/notices/${n._id}`}
-            className="btn btn-secondary btn-sm w-full">
-            View
-          </Link>
-
-          {!isDeleted && (
-            <>
-              <Link href={`/dashboard/notices/edit/${n._id}`}
-                className="btn btn-info btn-sm w-full">
-                Edit
-              </Link>
-
-              <button
-                className="btn btn-primary btn-sm w-full"
-                onClick={() => softDeleteNotice(n._id)}
-              >
-                Trash
-              </button>
-            </>
-          )}
-
-          {isDeleted && (
-            <>
-              <button
-                className="btn btn-primary btn-sm w-full"
-                onClick={() => handleRestore(n._id)}
-              >
-                Restore
-              </button>
-
-              <button
-                className="btn btn-error btn-sm w-full"
-                onClick={() => permanentDeleteNotices([n._id])}
-              >
-                Delete
-              </button>
-            </>
-          )}
-        </div>
-      </div>
-    ))}
-  </div>
-
-</div>
-
-
-            {/* Pagination bottom */}
-            <div className="flex justify-between items-center mt-4">
-               
+            {/* Pagination header */}
+            <div className="flex justify-between items-center my-5">
+                <span>{data?.pagination?.total} notices found</span>
 
                 <div className="flex gap-2">
                     <button
@@ -424,6 +207,221 @@ export default function AdminNoticesPage() {
                     >
                         »
                     </button>
+                </div>
+            </div>
+
+            {/* TABLE WRAPPER */}
+            <div className="bg-base-100 shadow-2xl rounded-2xl">
+
+                {/* ================= DESKTOP / TABLET TABLE ================= */}
+                <div className="overflow-x-auto hidden md:block">
+                    <table className="table table-zebra w-full">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>SL</th>
+                                <th>Title</th>
+                                <th>Categories</th>
+                                <th>Roles</th>
+                                <th>Author</th>
+                                <th>Created</th>
+                                <th>Updated</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        {data?.data?.map((n: Notice, index: number) => (
+                            <tr key={n._id}>
+                                <td>
+                                    <input
+                                        type="checkbox"
+                                        checked={selectedIds.includes(n._id)}
+                                        onChange={(e) => {
+                                            if (e.target.checked)
+                                                setSelectedIds(prev => [...prev, n._id]);
+                                            else
+                                                setSelectedIds(prev => prev.filter(id => id !== n._id));
+                                        }}
+                                    />
+                                </td>
+
+                                <td>{index + 1}</td>
+
+                                <td className="font-medium">{n.title}</td>
+
+                                <td>{n.categories.map((c: any) => c.name).join(", ")}</td>
+
+                                <td className="capitalize">
+                                    {n.allowedRoles.map((c: any) => c.name).join(", ")}
+                                </td>
+
+                                <td>{n?.createdBy?.name}</td>
+
+                                <td className="whitespace-nowrap">
+                                    {new Date(n?.createdAt).toLocaleString()}
+                                </td>
+
+                                <td className="whitespace-nowrap">
+                                    {new Date(n?.updatedAt).toLocaleString()}
+                                </td>
+
+                                <td className="flex flex-wrap gap-2">
+                                    <Link href={`/notices/${n._id}`}
+                                          className="btn btn-secondary btn-sm">
+                                        View
+                                    </Link>
+
+                                    {!isDeleted && (
+                                        <>
+                                            <Link href={`/dashboard/notices/edit/${n._id}`}
+                                                  className="btn btn-info btn-sm">
+                                                Edit
+                                            </Link>
+
+                                            <button
+                                                className="btn btn-primary btn-sm"
+                                                onClick={async () => {
+                                                    const result = await Swal.fire({
+                                                        title: "Are you sure?",
+                                                        text: "You will be able to restore this from Trash!",
+                                                        icon: "warning",
+                                                        showCancelButton: true,
+                                                        confirmButtonText: "Yes, move to Trash",
+                                                    });
+                                                    if (!result.isConfirmed) return;
+                                                    await softDeleteNotice(n._id);
+                                                    await loadData();
+                                                }}
+                                            >
+                                                Trash
+                                            </button>
+                                        </>
+                                    )}
+
+                                    {isDeleted && (
+                                        <>
+                                            <button
+                                                className="btn btn-primary btn-sm"
+                                                onClick={() => handleRestore(n._id)}
+                                            >
+                                                Restore
+                                            </button>
+
+                                            <button
+                                                className="btn btn-error btn-sm"
+                                                onClick={async () => {
+                                                    const result = await Swal.fire({
+                                                        title: "Are you sure?",
+                                                        text: "You won't be able to revert this!",
+                                                        icon: "warning",
+                                                        showCancelButton: true,
+                                                        confirmButtonText: "Delete Permanently",
+                                                    });
+                                                    if (!result.isConfirmed) return;
+                                                    await permanentDeleteNotices([n._id]);
+                                                    await loadData();
+                                                }}
+                                            >
+                                                Delete
+                                            </button>
+                                        </>
+                                    )}
+                                </td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                </div>
+
+
+                {/* ================= MOBILE CARD VIEW ================= */}
+                <div className="md:hidden space-y-3 p-2">
+                    {data?.data?.map((n: Notice, index: number) => (
+                        <div key={n._id}
+                             className="border border-gray-100 shadow-md  rounded-xl p-3 bg-base-200 space-y-2">
+
+                            <div className="flex justify-between">
+                                <span className="font-bold">#{index + 1}</span>
+                                <input
+                                    type="checkbox"
+                                    checked={selectedIds.includes(n._id)}
+                                    onChange={(e) => {
+                                        if (e.target.checked)
+                                            setSelectedIds(prev => [...prev, n._id]);
+                                        else
+                                            setSelectedIds(prev => prev.filter(id => id !== n._id));
+                                    }}
+                                />
+                            </div>
+
+                            <p className="font-semibold text-lg">{n.title}</p>
+
+                            <p className="text-sm">
+                                <span className="font-semibold">Categories: </span>
+                                {n.categories.map((c: any) => c.name).join(", ")}
+                            </p>
+
+                            <p className="text-sm capitalize">
+                                <span className="font-semibold">Roles: </span>
+                                {n.allowedRoles.map((c: any) => c.name).join(", ")}
+                            </p>
+
+                            <p className="text-sm">
+                                <span className="font-semibold">Author: </span>
+                                {n?.createdBy?.name}
+                            </p>
+
+                            <p className="text-xs opacity-80">
+                                Created: {new Date(n?.createdAt).toLocaleString()}
+                            </p>
+
+                            <p className="text-xs opacity-80">
+                                Updated: {new Date(n?.updatedAt).toLocaleString()}
+                            </p>
+
+                            <div className="flex flex-wrap gap-2 mt-2">
+                                <Link href={`/notices/${n._id}`}
+                                      className="btn btn-secondary btn-sm w-full">
+                                    View
+                                </Link>
+
+                                {!isDeleted && (
+                                    <>
+                                        <Link href={`/dashboard/notices/edit/${n._id}`}
+                                              className="btn btn-info btn-sm w-full">
+                                            Edit
+                                        </Link>
+
+                                        <button
+                                            className="btn btn-primary btn-sm w-full"
+                                            onClick={() => softDeleteNotice(n._id)}
+                                        >
+                                            Trash
+                                        </button>
+                                    </>
+                                )}
+
+                                {isDeleted && (
+                                    <>
+                                        <button
+                                            className="btn btn-primary btn-sm w-full"
+                                            onClick={() => handleRestore(n._id)}
+                                        >
+                                            Restore
+                                        </button>
+
+                                        <button
+                                            className="btn btn-error btn-sm w-full"
+                                            onClick={() => permanentDeleteNotices([n._id])}
+                                        >
+                                            Delete
+                                        </button>
+                                    </>
+                                )}
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </DashboardLayout>

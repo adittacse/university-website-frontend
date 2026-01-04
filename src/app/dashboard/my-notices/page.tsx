@@ -10,13 +10,13 @@ import {
     restoreNotice,
     softDeleteNotice
 } from "@/services/adminNotice.service";
-import {Notice} from "@/types/notice";
+import { Notice } from "@/types/notice";
 import Link from "next/link";
 import Swal from "sweetalert2";
+import SectionLoader from "@/components/ui/SectionLoader";
 
 const MyNotices = () => {
     const [page, setPage] = useState(1);
-    const [limit] = useState(10);
     const [search, setSearch] = useState("");
     const [isDeleted, setIsDeleted] = useState(false);
     const [bulkAction, setBulkAction] = useState("");
@@ -30,16 +30,16 @@ const MyNotices = () => {
     const loadData = useCallback(async () => {
         const res = await getMyNotices({
             page,
-            limit,
             search,
             isDeleted,
         });
 
         setData(res);
-    }, [page, limit, search, isDeleted]);
+    }, [page, search, isDeleted]);
 
     useEffect(() => {
-        loadData();
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        loadData().then();
         getNoticeCounts().then(setCounts);
     }, [loadData]);
 
@@ -53,14 +53,19 @@ const MyNotices = () => {
 
             await loadData();
             await getNoticeCounts();
-        } catch (err) {
-            console.error(err);
+        } catch (error) {
+            console.error(error);
         }
     };
 
     const applyBulkAction = async () => {
-        if (!bulkAction) return alert("Please select a bulk action");
-        if (selectedIds.length === 0) return alert("Please select at least one notice");
+        if (!bulkAction) {
+            return alert("Please select a bulk action");
+        }
+
+        if (selectedIds.length === 0) {
+            return alert("Please select at least one notice");
+        }
 
         try {
             if (bulkAction === "trash") {
@@ -80,12 +85,19 @@ const MyNotices = () => {
             setBulkAction("");
             await loadData();
             await getNoticeCounts();
-
-        } catch (err) {
-            console.error(err);
+        } catch (error) {
             alert("Bulk action failed");
         }
     };
+
+    if (!data) {
+        return (
+            <DashboardLayout>
+                <h1 className="text-2xl font-bold mb-10">My <span className="text-primary">Notice</span></h1>
+                <SectionLoader />
+            </DashboardLayout>
+        );
+    }
 
     return (
         <DashboardLayout>
