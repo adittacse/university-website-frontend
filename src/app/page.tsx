@@ -12,7 +12,7 @@ export default function Home() {
             <LatestNotice />
             <StatsSection />
             <DepartmentsSection />
-            <CoreValues></CoreValues>
+            <CoreValues />
         </div>
     );
 }

@@ -1,12 +1,19 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
-    return (
-        <footer className="footer footer-horizontal footer-center bg-base-200  text-base-content p-10 ">
+    const pathname = usePathname();
 
-            {/* 🔗 Navigation */}
+    if (pathname.startsWith("/dashboard")) {
+        return <></>;
+    }
+
+    return (
+        <div className="footer footer-horizontal footer-center bg-base-200 text-base-content p-10">
+
+            {/* Navigation */}
             <nav className="grid grid-flow-col gap-6 text-sm">
                 <Link href="/about" className="link link-hover">
                     About <span className="text-primary">University </span>
@@ -22,7 +29,7 @@ export default function Footer() {
                 </Link>
             </nav>
 
-            {/* 🌐 Social Media */}
+            {/* Social Media */}
             <nav>
                 <div className="grid grid-flow-col gap-5">
                     {/* Twitter */}
@@ -102,10 +109,9 @@ export default function Footer() {
             {/* © Copyright */}
             <aside className="text-sm text-gray-500">
                 <p>
-                    © {new Date().getFullYear()} XYZ University.
-                    All rights reserved.
+                    © {new Date().getFullYear()} XYZ University. All rights reserved.
                 </p>
             </aside>
-        </footer>
+        </div>
     );
 }
