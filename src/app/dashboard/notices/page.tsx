@@ -1,6 +1,6 @@
 "use client";
 
-import {useCallback, useEffect, useState} from "react";
+import { useCallback, useEffect, useState } from "react";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import {
     getAdminNotices,
@@ -10,10 +10,12 @@ import {
     bulkRestoreNotice,
     permanentDeleteNotices,
 } from "@/services/adminNotice.service";
-import {Notice} from "@/types/notice";
+import { Notice } from "@/types/notice";
 import Link from "next/link";
 import Swal from "sweetalert2";
 import SectionLoader from "@/components/ui/SectionLoader";
+import { Role } from "@/types/role";
+import { Category } from "@/types/category";
 
 export default function AdminNoticesPage() {
     const [page, setPage] = useState(1);
@@ -250,10 +252,10 @@ export default function AdminNoticesPage() {
 
                                 <td className="font-medium">{n.title}</td>
 
-                                <td>{n.categories.map((c: any) => c.name).join(", ")}</td>
+                                <td>{n.categories.map((c: Category) => c.name).join(", ")}</td>
 
                                 <td className="capitalize">
-                                    {n.allowedRoles.map((c: any) => c.name).join(", ")}
+                                    {n.allowedRoles.map((c: Role) => c.name).join(", ")}
                                 </td>
 
                                 <td>{n?.createdBy?.name}</td>
@@ -359,12 +361,12 @@ export default function AdminNoticesPage() {
 
                             <p className="text-sm">
                                 <span className="font-semibold">Categories: </span>
-                                {n.categories.map((c: any) => c.name).join(", ")}
+                                {n.categories.map((c: Category) => c.name).join(", ")}
                             </p>
 
                             <p className="text-sm capitalize">
                                 <span className="font-semibold">Roles: </span>
-                                {n.allowedRoles.map((c: any) => c.name).join(", ")}
+                                {n.allowedRoles.map((c: Role) => c.name).join(", ")}
                             </p>
 
                             <p className="text-sm">
