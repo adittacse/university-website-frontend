@@ -10,9 +10,9 @@ const LatestNotice = () => {
     }
 
     return (
-        <section className="py-14 bg-base-200">
-            <h3 className="text-4xl font-bold text-center mb-10">Latest Notice</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5 px-10">
+        <section className="py-16">
+            <h3 className="text-4xl font-bold text-center mb-10">Latest <span className="text-cyan-500">Notice</span></h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5 px-6">
                 {
                     data?.data?.filter(n => !n.isDeleted)?.slice(0, 4)?.map((notice) => (
                         <NoticeCard key={notice._id} notice={notice}/>

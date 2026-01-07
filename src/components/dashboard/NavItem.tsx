@@ -16,7 +16,7 @@ export function NavItem({ href, children }: NavItemProps) {
         <Link
             href={href}
             className={`font-bold  ${
-                isActive ? "text-primary" : "btn-ghost"
+                isActive ? "text-cyan-500" : "text-gray-700 hover:text-cyan-500"
             }`}
         >
             {children}

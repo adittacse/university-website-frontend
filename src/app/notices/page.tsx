@@ -19,8 +19,8 @@ export default function NoticesPage() {
         <>
             {/* <Navbar/> */}
 
-            <div className="p-6 max-w-7xl mx-auto">
-                <h1 className="text-3xl font-bold text-center mb-10">All <span className="text-primary">Notice</span></h1>
+            <div className="p-6 bg-gradient-to-r from-cyan-50 via-white to-cyan-50">
+                <h1 className="text-3xl font-bold text-center mb-10">All <span className="text-cyan-500">Notice</span></h1>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
                     {

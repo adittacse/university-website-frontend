@@ -20,31 +20,33 @@ export const metadata: Metadata = {
     description: "Official University Portal",
 };
 
+
 export default function RootLayout({ children }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-    return (
-        <html lang="en" data-theme="light">
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+  return (
+    <html lang="en" data-theme="light">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
 
-            <ClientProviders>
-                {/* Header */}
-                <header className="md:w-11/12 mx-auto">
-                    <Navbar/>
-                </header>
+        <ClientProviders>
 
-                {/* Main */}
-                <main className="md:w-11/12 mx-auto min-h-[calc(100vh-302px)]">
-                    {children}
-                </main>
+          {/* Sticky Navbar */}
+          <div className="sticky top-0 z-50">
+            <header className="bg-white/80 backdrop-blur-lg border-b border-slate-200">
+              <Navbar />
+            </header>
+          </div>
 
-                {/* Footer */}
-                <footer>
-                    <Footer/>
-                </footer>
-            </ClientProviders>
+          {/* Main content (NO overflow here) */}
+          <main className="bg-gradient-to-r from-cyan-50 via-white to-cyan-50">
+            {children}
+          </main>
 
-        </body>
-        </html>
-    );
+          <Footer />
+
+        </ClientProviders>
+
+      </body>
+    </html>
+  );
 }
