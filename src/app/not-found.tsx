@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+// app/not-found.tsx
+>>>>>>> 4fba2396524211f47ea000b97c8da93261a1ffa1
 "use client";
 
 import { useRouter } from "next/navigation";

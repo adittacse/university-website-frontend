@@ -16,6 +16,7 @@ export default function Navbar() {
 
   const links = (
     <>
+<<<<<<< HEAD
       <li>
         <NavItem href="/">Home</NavItem>
       </li>
@@ -33,6 +34,15 @@ export default function Navbar() {
         <li>
           <NavItem href="/dashboard">Dashboard</NavItem>
         </li>
+=======
+      <li><NavItem href="/">Home</NavItem></li>
+      <li><NavItem href="/notices">All Notice</NavItem></li>
+      <li><NavItem href="/about">About</NavItem></li>
+      <li><NavItem href="/contact">Contact</NavItem></li>
+
+      {(role === "admin" || role === "teacher") && (
+        <li><NavItem href="/dashboard">Dashboard</NavItem></li>
+>>>>>>> 4fba2396524211f47ea000b97c8da93261a1ffa1
       )}
     </>
   );
@@ -40,10 +50,22 @@ export default function Navbar() {
   return (
     <div className="sticky top-0 z-50 bg-base-100">
       <div className="navbar shadow-sm  px-4">
+<<<<<<< HEAD
         {/* Navbar start */}
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+=======
+
+        {/* Navbar start */}
+        <div className="navbar-start">
+          <div className="dropdown">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost lg:hidden"
+            >
+>>>>>>> 4fba2396524211f47ea000b97c8da93261a1ffa1
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -68,6 +90,7 @@ export default function Navbar() {
             </ul>
           </div>
 
+<<<<<<< HEAD
           <Link
             href="/"
             className="btn btn-ghost text-lg md:text-2xl font-extrabold 
@@ -87,11 +110,32 @@ export default function Navbar() {
             <button
               onClick={handleLogOut}
               className="btn btn-sm rounded-full bg-slate-700 text-white hover:bg-slate-800 transition"
+=======
+          <Link href="/" className="btn btn-ghost text-lg md:text-2xl font-bold">
+            XYZ <span className="text-primary">University</span> 
+          </Link>
+        </div>
+
+        {/* Navbar center */}
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal gap-3">
+            {links}
+          </ul>
+        </div>
+
+        {/* Navbar end */}
+        <div className="navbar-end">
+          {isAuthenticated ? (
+            <button
+              onClick={handleLogOut}
+              className="btn btn-sm btn-error"
+>>>>>>> 4fba2396524211f47ea000b97c8da93261a1ffa1
             >
               Logout
             </button>
           ) : (
             <div className="flex gap-2">
+<<<<<<< HEAD
               <Link
                 href="/login"
                 className="btn btn-sm border border-cyan-500 text-cyan-600 hover:bg-cyan-50 rounded-2xl"
@@ -103,11 +147,21 @@ export default function Navbar() {
                 href="/register"
                 className="btn btn-sm bg-cyan-500 text-white hover:bg-cyan-600 rounded-2xl"
               >
+=======
+              <Link href="/login" className="btn btn-sm btn-primary">
+                Login
+              </Link>
+              <Link href="/register" className="btn btn-sm btn-warning">
+>>>>>>> 4fba2396524211f47ea000b97c8da93261a1ffa1
                 Register
               </Link>
             </div>
           )}
         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4fba2396524211f47ea000b97c8da93261a1ffa1
       </div>
     </div>
   );

@@ -5,9 +5,30 @@ import { usePathname } from "next/navigation";
 import { FaFacebookF, FaYoutube, FaTwitter } from "react-icons/fa";
 
 export default function Footer() {
+<<<<<<< HEAD
   const pathname = usePathname();
 
   if (pathname.startsWith("/dashboard")) return null;
+=======
+    return (
+        <footer className="footer footer-horizontal footer-center bg-base-200  text-base-content p-10 ">
+
+            {/* 🔗 Navigation */}
+            <nav className="grid grid-flow-col gap-6 text-sm">
+                <Link href="/about" className="link link-hover">
+                    About <span className="text-primary">University </span>
+                </Link>
+                <Link href="/all-notice" className="link link-hover">
+                    All Notices
+                </Link>
+                <Link href="/departments" className="link link-hover">
+                    Departments
+                </Link>
+                <Link href="/contact" className="link link-hover">
+                    Contact
+                </Link>
+            </nav>
+>>>>>>> 4fba2396524211f47ea000b97c8da93261a1ffa1
 
   return (
     <footer className="bg-cyan-400 text-slate-900 ">
