@@ -7,7 +7,7 @@ import CoreValues from "@/components/about/CoreValues";
 
 export default function Home() {
     return (
-        <div >        
+        <div >
             <HeroSection />
             <LatestNotice />
             <StatsSection />

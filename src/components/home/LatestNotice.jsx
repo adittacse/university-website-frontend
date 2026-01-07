@@ -1,5 +1,5 @@
-import SectionLoader from "../ui/SectionLoader";
 import { useNotices } from "@/hooks/useNotices";
+import SectionLoader from "../ui/SectionLoader";
 import NoticeCard from "../notice/NoticeCard";
 
 const LatestNotice = () => {

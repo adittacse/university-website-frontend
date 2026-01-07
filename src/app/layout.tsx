@@ -27,22 +27,22 @@ export default function RootLayout({ children }: {
         <html lang="en" data-theme="light">
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
 
-            <ClientProviders>
-                {/* Header */}
-                <header className="md:w-11/12 mx-auto">
-                    <Navbar/>
-                </header>
+        <ClientProviders>
+            {/* Header */}
+            <header className="md:w-11/12 mx-auto">
+                <Navbar/>
+            </header>
 
-                {/* Main */}
-                <main className="md:w-11/12 mx-auto min-h-[calc(100vh-302px)]">
-                    {children}
-                </main>
+            {/* Main */}
+            <main className="md:w-11/12 mx-auto min-h-[calc(100vh-302px)]">
+                {children}
+            </main>
 
-                {/* Footer */}
-                <footer>
-                    <Footer/>
-                </footer>
-            </ClientProviders>
+            {/* Footer */}
+            <footer>
+                <Footer/>
+            </footer>
+        </ClientProviders>
 
         </body>
         </html>

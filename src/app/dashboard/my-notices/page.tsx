@@ -14,6 +14,8 @@ import { Notice } from "@/types/notice";
 import Link from "next/link";
 import Swal from "sweetalert2";
 import SectionLoader from "@/components/ui/SectionLoader";
+import { Category } from "@/types/category";
+import { Role } from "@/types/role";
 
 const MyNotices = () => {
     const [page, setPage] = useState(1);
@@ -201,17 +203,17 @@ const MyNotices = () => {
                 <div className="overflow-x-auto hidden md:block">
                     <table className="table table-zebra w-full">
                         <thead>
-                            <tr>
-                                <th></th>
-                                <th>SL.</th>
-                                <th>Title</th>
-                                <th>Categories</th>
-                                <th>Roles</th>
-                                <th>Author</th>
-                                <th>Created</th>
-                                <th>Updated</th>
-                                <th>Actions</th>
-                            </tr>
+                        <tr>
+                            <th></th>
+                            <th>SL.</th>
+                            <th>Title</th>
+                            <th>Categories</th>
+                            <th>Roles</th>
+                            <th>Author</th>
+                            <th>Created</th>
+                            <th>Updated</th>
+                            <th>Actions</th>
+                        </tr>
                         </thead>
 
                         <tbody>
@@ -234,10 +236,10 @@ const MyNotices = () => {
 
                                 <td className="font-medium">{n.title}</td>
 
-                                <td>{n.categories.map((c: any) => c.name).join(", ")}</td>
+                                <td>{n.categories.map((c: Category) => c.name).join(", ")}</td>
 
                                 <td className="capitalize">
-                                    {n.allowedRoles.map((c: any) => c.name).join(", ")}
+                                    {n.allowedRoles.map((c: Role) => c.name).join(", ")}
                                 </td>
 
                                 <td>{n?.createdBy?.name}</td>
@@ -350,12 +352,12 @@ const MyNotices = () => {
 
                             <p className="text-sm">
                                 <span className="font-semibold">Categories: </span>
-                                {n.categories.map((c: any) => c.name).join(", ")}
+                                {n.categories.map((c: Category) => c.name).join(", ")}
                             </p>
 
                             <p className="text-sm capitalize">
                                 <span className="font-semibold">Roles: </span>
-                                {n.allowedRoles.map((c: any) => c.name).join(", ")}
+                                {n.allowedRoles.map((c: Role) => c.name).join(", ")}
                             </p>
 
                             <p className="text-sm">

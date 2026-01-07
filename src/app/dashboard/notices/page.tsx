@@ -224,17 +224,17 @@ export default function AdminNoticesPage() {
                 <div className="overflow-x-auto hidden md:block">
                     <table className="table table-zebra w-full">
                         <thead>
-                            <tr>
-                                <th></th>
-                                <th>SL</th>
-                                <th>Title</th>
-                                <th>Categories</th>
-                                <th>Roles</th>
-                                <th>Author</th>
-                                <th>Created</th>
-                                <th>Updated</th>
-                                <th>Actions</th>
-                            </tr>
+                        <tr>
+                            <th></th>
+                            <th>SL</th>
+                            <th>Title</th>
+                            <th>Categories</th>
+                            <th>Roles</th>
+                            <th>Author</th>
+                            <th>Created</th>
+                            <th>Updated</th>
+                            <th>Actions</th>
+                        </tr>
                         </thead>
 
                         <tbody>
