@@ -10,7 +10,7 @@ import {
     deleteCategory,
 } from "@/services/category.service";
 import { Category } from "@/types/category";
-import SectionLoader from "@/components/ui/SectionLoader";
+import Swal from "sweetalert2";
 
 export default function AdminCategoriesPage() {
     const [categories, setCategories] = useState<Category[]>([]);
@@ -30,13 +30,13 @@ export default function AdminCategoriesPage() {
         loadData().then();
     }, [loadData]);
 
-    const toggleAll = (checked: boolean) => {
-        if (checked) {
-            setSelectedIds(categories.map(c => c._id));
-        } else {
-            setSelectedIds([]);
-        }
-    };
+    // const toggleAll = (checked: boolean) => {
+    //     if (checked) {
+    //         setSelectedIds(categories.map(c => c._id));
+    //     } else {
+    //         setSelectedIds([]);
+    //     }
+    // };
 
     const bulkDelete = async () => {
         if (!confirm("Delete selected categories?")) {
@@ -44,7 +44,7 @@ export default function AdminCategoriesPage() {
         }
 
         await Promise.all(selectedIds.map(id => deleteCategory(id)));
-        loadData();
+        await loadData();
     };
 
     return (
@@ -127,17 +127,35 @@ export default function AdminCategoriesPage() {
             <td>{cat?.parent?.name || "-"}</td>
 
             <td className="flex flex-wrap gap-2">
-              <button
-                className="btn btn-sm btn-primary"
-                onClick={() => setEditingCategory(cat)}
-              >
+              <button className="btn btn-sm btn-primary"
+                onClick={() => setEditingCategory(cat)}>
                 Edit
               </button>
 
-              <button
-                className="btn btn-sm btn-error"
-                onClick={() => deleteCategory(cat._id).then(loadData)}
-              >
+              <button className="btn btn-sm btn-error"
+                onClick={async () => {
+                    const result = await Swal.fire({
+                        title: "Are you sure?",
+                        text: "You won't be able to revert this!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Yes, delete it!"
+                    });
+                    if (!result.isConfirmed) {
+                        return;
+                    }
+                    await deleteCategory(cat._id);
+                    await loadData();
+                    await Swal.fire({
+                        title: "Deleted!",
+                        text: "Category has been deleted.",
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                }}>
                 Delete
               </button>
             </td>

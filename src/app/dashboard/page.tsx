@@ -53,7 +53,7 @@ export default function DashboardOverviewPage() {
 
     return (
         <DashboardLayout>
-            <h1 className="text-2xl font-bold mb-10 text-primary"> Overview</h1>
+            <h1 className="text-2xl font-bold mb-10 text-primary">Overview</h1>
 
             {/* ================= METRICS ================= */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">

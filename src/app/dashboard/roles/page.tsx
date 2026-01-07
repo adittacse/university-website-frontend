@@ -6,6 +6,7 @@ import RoleForm from "@/components/dashboard/RoleForm";
 import EditRoleModal from "@/components/dashboard/EditRoleModal";
 import { getRoles, deleteRole } from "@/services/role.service";
 import { Role } from "@/types/role";
+import Swal from "sweetalert2";
 
 export default function AdminRolesPage() {
     const [roles, setRoles] = useState<Role[]>([]);
@@ -20,7 +21,8 @@ export default function AdminRolesPage() {
     }, [search]);
 
     useEffect(() => {
-        loadData();
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        loadData().then();
     }, [loadData]);
 
     const toggleAll = (checked: boolean) => {
@@ -30,7 +32,7 @@ export default function AdminRolesPage() {
     const bulkDelete = async () => {
         if (!confirm("Delete selected roles?")) return;
         await Promise.all(selectedIds.map(id => deleteRole(id)));
-        loadData();
+        await loadData();
     };
 
     return (
@@ -114,9 +116,29 @@ export default function AdminRolesPage() {
                                         </button>
                                         <button
                                             className="btn btn-sm btn-error"
-                                            onClick={() =>
-                                                deleteRole(role._id).then(loadData)
-                                            }
+                                            onClick={async () => {
+                                                const result = await Swal.fire({
+                                                    title: "Are you sure?",
+                                                    text: "You won't be able to revert this!",
+                                                    icon: "warning",
+                                                    showCancelButton: true,
+                                                    confirmButtonColor: "#3085d6",
+                                                    cancelButtonColor: "#d33",
+                                                    confirmButtonText: "Yes, delete it!"
+                                                });
+                                                if (!result.isConfirmed) {
+                                                    return;
+                                                }
+                                                await deleteRole(role._id);
+                                                await loadData();
+                                                await Swal.fire({
+                                                    title: "Deleted!",
+                                                    text: "Role has been deleted.",
+                                                    icon: "success",
+                                                    showConfirmButton: false,
+                                                    timer: 1500,
+                                                });
+                                            }}
                                         >
                                             Delete
                                         </button>

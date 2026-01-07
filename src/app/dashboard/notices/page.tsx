@@ -14,6 +14,8 @@ import { Notice } from "@/types/notice";
 import Link from "next/link";
 import Swal from "sweetalert2";
 import SectionLoader from "@/components/ui/SectionLoader";
+import { Category } from "@/types/category";
+import { Role } from "@/types/role";
 
 export default function AdminNoticesPage() {
     const [page, setPage] = useState(1);
@@ -52,8 +54,14 @@ export default function AdminNoticesPage() {
 
             await loadData();
             await getNoticeCounts();
-        } catch (err) {
-            console.error(err);
+        } catch (error) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            await Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: error,
+            });
         }
     };
 
@@ -102,7 +110,6 @@ export default function AdminNoticesPage() {
             await getNoticeCounts();
 
         } catch (err) {
-            console.error(err);
             alert("Bulk action failed");
         }
     };
@@ -250,10 +257,10 @@ export default function AdminNoticesPage() {
 
                                 <td className="font-medium">{n.title}</td>
 
-                                <td>{n.categories.map((c: any) => c.name).join(", ")}</td>
+                                <td>{n.categories.map((c: Category) => c.name).join(", ")}</td>
 
                                 <td className="capitalize">
-                                    {n.allowedRoles.map((c: any) => c.name).join(", ")}
+                                    {n.allowedRoles.map((r: Role) => r.name).join(", ")}
                                 </td>
 
                                 <td>{n?.createdBy?.name}</td>
@@ -289,7 +296,9 @@ export default function AdminNoticesPage() {
                                                         showCancelButton: true,
                                                         confirmButtonText: "Yes, move to Trash",
                                                     });
-                                                    if (!result.isConfirmed) return;
+                                                    if (!result.isConfirmed) {
+                                                        return;
+                                                    }
                                                     await softDeleteNotice(n._id);
                                                     await loadData();
                                                 }}
@@ -318,7 +327,9 @@ export default function AdminNoticesPage() {
                                                         showCancelButton: true,
                                                         confirmButtonText: "Delete Permanently",
                                                     });
-                                                    if (!result.isConfirmed) return;
+                                                    if (!result.isConfirmed) {
+                                                        return;
+                                                    }
                                                     await permanentDeleteNotices([n._id]);
                                                     await loadData();
                                                 }}
@@ -359,12 +370,12 @@ export default function AdminNoticesPage() {
 
                             <p className="text-sm">
                                 <span className="font-semibold">Categories: </span>
-                                {n.categories.map((c: any) => c.name).join(", ")}
+                                {n.categories.map((c: Category) => c.name).join(", ")}
                             </p>
 
                             <p className="text-sm capitalize">
                                 <span className="font-semibold">Roles: </span>
-                                {n.allowedRoles.map((c: any) => c.name).join(", ")}
+                                {n.allowedRoles.map((r: Role) => r.name).join(", ")}
                             </p>
 
                             <p className="text-sm">
