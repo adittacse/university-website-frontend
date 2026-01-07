@@ -9,6 +9,4 @@ export type UserRole =
     | "admin"
     | "teacher"
     | "student"
-    | "staff"
-    | "moderator"
-    | "super_admin";
+    | "staff";

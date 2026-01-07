@@ -109,7 +109,7 @@ export default function AdminNoticesPage() {
             await loadData();
             await getNoticeCounts();
 
-        } catch (err) {
+        } catch (error) {
             alert("Bulk action failed");
         }
     };
@@ -125,7 +125,9 @@ export default function AdminNoticesPage() {
 
     return (
         <DashboardLayout>
-            <h1 className="text-2xl font-bold mb-10">All <span className="text-primary">Notice</span></h1>
+            <h1 className="text-2xl font-bold mb-10">
+                All <span className="text-primary">Notice</span>
+            </h1>
 
             {/* Published / Trash tabs */}
             <div className="flex gap-4 border-b pb-5 mb-5">
@@ -344,7 +346,6 @@ export default function AdminNoticesPage() {
                         </tbody>
                     </table>
                 </div>
-
 
                 {/* ================= MOBILE CARD VIEW ================= */}
                 <div className="md:hidden space-y-3 p-2">

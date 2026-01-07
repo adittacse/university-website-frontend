@@ -9,13 +9,13 @@ type SidebarProps = {
     role: UserRole;
 };
 
-export default function Sidebar({role}: SidebarProps) {
+export default function Sidebar({ role }: SidebarProps) {
     const handleLogout = async () => {
         await signOut({callbackUrl: "/"});
     };
 
     return (
-        <aside className="w-64 h-screen bg-base-100 border-r">
+        <aside className="w-64 h-screen bg-base-100">
             <div className="p-4 border-b">
                 <Link href="/" className="font-bold text-xl flex items-center gap-2 mb-5">
                     <span className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white">
@@ -77,10 +77,7 @@ export default function Sidebar({role}: SidebarProps) {
                     )}
 
                     <li>
-                        <button
-                            className="btn btn-sm btn-error btn-block mt-4"
-                            onClick={handleLogout}
-                        >
+                        <button className="btn btn-sm btn-error btn-block mt-4" onClick={handleLogout}>
                             Logout
                         </button>
                     </li>
