@@ -15,7 +15,7 @@ export default function Sidebar({ role }: SidebarProps) {
   };
 
   return (
-    <aside className="w-64 h-screen bg-base-100 border-r">
+    <aside className="w-64 h-screen bg-base-100">
       {/* Header */}
       <div className="p-4 border-b">
         <Link
