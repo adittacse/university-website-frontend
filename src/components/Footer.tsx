@@ -5,34 +5,14 @@ import { usePathname } from "next/navigation";
 import { FaFacebookF, FaYoutube, FaTwitter } from "react-icons/fa";
 
 export default function Footer() {
-<<<<<<< HEAD
   const pathname = usePathname();
 
-  if (pathname.startsWith("/dashboard")) return null;
-=======
-    return (
-        <footer className="footer footer-horizontal footer-center bg-base-200  text-base-content p-10 ">
 
-            {/* 🔗 Navigation */}
-            <nav className="grid grid-flow-col gap-6 text-sm">
-                <Link href="/about" className="link link-hover">
-                    About <span className="text-primary">University </span>
-                </Link>
-                <Link href="/all-notice" className="link link-hover">
-                    All Notices
-                </Link>
-                <Link href="/departments" className="link link-hover">
-                    Departments
-                </Link>
-                <Link href="/contact" className="link link-hover">
-                    Contact
-                </Link>
-            </nav>
->>>>>>> 4fba2396524211f47ea000b97c8da93261a1ffa1
+  if (pathname.startsWith("/dashboard")) return null;
 
   return (
-    <footer className="bg-cyan-400 text-slate-900 ">
-      <div className=" px-6 py-14 grid gap-10 md:grid-cols-3">
+    <footer className="bg-cyan-400 text-slate-900">
+      <div className="max-w-11/12 mx-auto px-6 py-14 grid gap-10 md:grid-cols-3">
 
         {/* Brand */}
         <div>
@@ -52,22 +32,34 @@ export default function Footer() {
           </h4>
           <ul className="space-y-3 text-sm">
             <li>
-              <Link href="/about" className="text-cyan-50 hover:text-white transition">
+              <Link
+                href="/about"
+                className="text-cyan-50 hover:text-white transition"
+              >
                 About University
               </Link>
             </li>
             <li>
-              <Link href="/all-notice" className="text-cyan-50 hover:text-white transition">
+              <Link
+                href="/all-notice"
+                className="text-cyan-50 hover:text-white transition"
+              >
                 All Notices
               </Link>
             </li>
             <li>
-              <Link href="/departments" className="text-cyan-50 hover:text-white transition">
+              <Link
+                href="/departments"
+                className="text-cyan-50 hover:text-white transition"
+              >
                 Departments
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="text-cyan-50 hover:text-white transition">
+              <Link
+                href="/contact"
+                className="text-cyan-50 hover:text-white transition"
+              >
                 Contact
               </Link>
             </li>
@@ -110,7 +102,7 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div className="border-t border-cyan-300 py-5 text-center text-xs text-cyan-50">
-        © {new Date().getFullYear()} XYZ University. All rights reserved.
+        © {new Date().getFullYear()} RMIT University. All rights reserved.
       </div>
     </footer>
   );

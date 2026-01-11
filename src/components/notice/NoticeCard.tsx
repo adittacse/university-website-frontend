@@ -34,31 +34,9 @@ export default function NoticeCard({ notice }: Props) {
         {/* subtle glass shine */}
         <div className="pointer-events-none absolute -top-12 -left-12 w-40 h-40 bg-white/40 rounded-full blur-3xl" />
 
-<<<<<<< HEAD
         {/* FILE ICON */}
         <div className="flex-shrink-0 pt-1 text-cyan-600 relative z-10">
           {getFileIcon(file)}
-=======
-            {/* CONTENT */}
-            <div className="flex-1 space-y-2">
-                {/* Title */}
-                <Link href={`/notices/${_id}`}>
-                    <h2 className="text-primary font-semibold leading-snug hover:underline">
-                        {title}
-                    </h2>
-                </Link>
-
-                {/* Date */}
-                <div className="flex items-center gap-2 text-sm text-gray-500 mt-2">
-                    <FaCalendarAlt className="text-xs" />
-                    {new Date(createdAt).toLocaleDateString("en-GB", {
-                        day: "2-digit",
-                        month: "long",
-                        year: "numeric",
-                    })}
-                </div>
-            </div>
->>>>>>> 4fba2396524211f47ea000b97c8da93261a1ffa1
         </div>
 
         {/* CONTENT */}

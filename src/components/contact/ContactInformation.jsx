@@ -2,17 +2,18 @@ const ContactInformation = () => {
     return (
         <div className="space-y-6">
             <h2 className="text-2xl font-semibold mb-4">
-                <span className="text-primary">University </span>Contact Information
+                <span className="bg-gradient-to-r to-cyan-400 from-cyan-800
+              bg-clip-text text-transparent">University </span>Contact Information
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="card bg-base-100 shadow">
                     <div className="card-body">
-                        <h3 className="font-semibold text-lg text-primary">
+                        <h3 className="font-semibold text-lg text-cyan-600">
                             📍 Address
                         </h3>
                         <p className="text-gray-600">
-                            XYZ University <br />
+                            RMIT University <br />
                             Main Campus Road <br />
                             Dhaka, Bangladesh
                         </p>
@@ -21,7 +22,7 @@ const ContactInformation = () => {
 
                 <div className="card bg-base-100 shadow">
                     <div className="card-body">
-                        <h3 className="font-semibold text-lg text-primary">
+                        <h3 className="font-semibold text-lg text-cyan-600">
                             📞 Phone
                         </h3>
                         <p className="text-gray-600">
@@ -31,21 +32,21 @@ const ContactInformation = () => {
                     </div>
                 </div>
 
-                <div className="card bg-base-100 shadow ">
+                <div className="card bg-base-100 shadow">
                     <div className="card-body">
-                        <h3 className="font-semibold text-lg text-primary">
+                        <h3 className="font-semibold text-lg text-cyan-600">
                             📧 Email
                         </h3>
                         <p className="text-gray-600">
-                            info@xyzuniversity.edu <br />
-                            notice@xyzuniversity.edu
+                            info@rmituniversity.edu <br />
+                            notice@rmituniversity.edu
                         </p>
                     </div>
                 </div>
 
                 <div className="card bg-base-100 shadow">
                     <div className="card-body">
-                        <h3 className="font-semibold text-lg text-primary">
+                        <h3 className="font-semibold text-lg text-cyan-600">
                             🕒 Office Hours
                         </h3>
                         <p className="text-gray-600">

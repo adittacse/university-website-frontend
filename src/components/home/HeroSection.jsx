@@ -10,7 +10,6 @@ import hero3 from "@/asset/vadim-sherbakov-d6ebY-faOO0-unsplash.jpg";
 const images = [hero1, hero2, hero3];
 
 const HeroSection = () => {
-<<<<<<< HEAD
   const [current, setCurrent] = useState(0);
 
   // auto slide
@@ -23,7 +22,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative h-[70vh] w-full overflow-hidden ">
+    <section className="relative h-[70vh] w-full overflow-hidden">
       {/* Images */}
       {images.map((img, index) => (
         <div
@@ -43,7 +42,7 @@ const HeroSection = () => {
       ))}
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/40"></div>
+      <div className="absolute inset-0 bg-black/40" />
 
       {/* Content */}
       <div className="relative z-10 flex h-full items-center justify-center text-center px-6">
@@ -56,17 +55,6 @@ const HeroSection = () => {
             announcements
           </p>
         </div>
-=======
-  return (
-    <section className="bg-gradient-to-r from-blue-100 via-white to-blue-100 py-16">
-      <div className="max-w-7xl mx-auto px-6 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4">
-          XYZ University
-        </h1>
-        <p className="text-lg mb-6 text-primary">
-          Official notice board for academic, administrative & general announcements
-        </p>
->>>>>>> 4fba2396524211f47ea000b97c8da93261a1ffa1
       </div>
     </section>
   );

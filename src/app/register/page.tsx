@@ -5,13 +5,10 @@ import { useRouter } from "next/navigation";
 import api from "@/lib/axios";
 import Swal from "sweetalert2";
 import Link from "next/link";
-<<<<<<< HEAD
 import Image from "next/image";
 
 // background image
 import registerBg from "@/asset/Auth/register.jpg";
-=======
->>>>>>> 4fba2396524211f47ea000b97c8da93261a1ffa1
 
 type RegisterForm = {
   name: string;
@@ -27,12 +24,11 @@ export default function RegisterPage() {
     try {
       await api.post("/auth/register", data);
 
-<<<<<<< HEAD
       await Swal.fire({
         icon: "success",
         title: "Account created successfully",
-        timer: 1500,
         showConfirmButton: false,
+        timer: 1500,
       });
 
       router.push("/login");
@@ -66,7 +62,7 @@ export default function RegisterPage() {
         {/* LEFT TEXT */}
         <div className="hidden md:flex flex-col justify-center text-white">
           <h2 className="text-4xl font-bold mb-4">
-            Join Our Community 
+            Join Our Community
           </h2>
           <p className="text-lg text-white/80 max-w-md">
             Create your account to access university notices, departments,
@@ -110,8 +106,8 @@ export default function RegisterPage() {
                   <input
                     placeholder="Full name"
                     className="
-                      rounded-full
                       input w-full
+                      rounded-full
                       bg-white/70
                       border border-white/60
                       focus:outline-none focus:border-cyan-500
@@ -124,8 +120,8 @@ export default function RegisterPage() {
                     placeholder="Email address"
                     className="
                       input w-full
-                      bg-white/70
                       rounded-full
+                      bg-white/70
                       border border-white/60
                       focus:outline-none focus:border-cyan-500
                     "
@@ -137,8 +133,8 @@ export default function RegisterPage() {
                     placeholder="Password"
                     className="
                       input w-full
-                      bg-white/70
                       rounded-full
+                      bg-white/70
                       border border-white/60
                       focus:outline-none focus:border-cyan-500
                     "
@@ -166,73 +162,7 @@ export default function RegisterPage() {
             </div>
           </div>
         </div>
-=======
-      await Swal.fire("Success", "Account created successfully", "success");
-      router.push("/login");
-    } catch (error: any) {
-      await Swal.fire(
-        "Error",
-        error?.response?.data?.message || "Registration failed",
-        "error"
-      );
-    }
-  };
 
-  return (
-    <div className="flex items-center justify-center py-20 px-4">
-      <div className="card bg-base-100 w-full max-w-sm shadow-xl border border-base-300">
-        <div className="card-body">
-
-          {/* Title */}
-          <h3 className="text-3xl font-bold text-center text-primary mb-1">
-            Register
-          </h3>
-          <p className="text-center text-sm text-gray-500 mb-4">
-            Create a new account to continue
-          </p>
-
-          {/* Form */}
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <fieldset className="flex flex-col gap-y-4">
-
-              <input
-                placeholder="Full name"
-                className="input input-bordered w-full focus:border-primary"
-                {...register("name", { required: true })}
-              />
-
-              <input
-                type="email"
-                placeholder="Email address"
-                className="input input-bordered w-full focus:border-primary"
-                {...register("email", { required: true })}
-              />
-
-              <input
-                type="password"
-                placeholder="Password"
-                className="input input-bordered w-full focus:border-primary"
-                {...register("password", { required: true })}
-              />
-
-              <button className="btn btn-primary w-full mt-2">
-                Register
-              </button>
-
-            </fieldset>
-          </form>
-              {/* Login link */}
-          <p className="text-center text-sm mt-4">
-            Already have an account?{" "}
-            <Link
-              href="/login"
-              className="text-primary font-semibold hover:underline"
-            >
-              Login
-            </Link>
-          </p>
-        </div>
->>>>>>> 4fba2396524211f47ea000b97c8da93261a1ffa1
       </div>
     </div>
   );

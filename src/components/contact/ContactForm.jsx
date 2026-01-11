@@ -2,7 +2,8 @@ const ContactForm = () => {
     return (
         <div>
             <h2 className="text-2xl font-semibold mb-4">
-                Send Us a <span className="text-primary">Message</span>
+                Send Us a <span className="bg-gradient-to-r to-cyan-400 from-cyan-800
+              bg-clip-text text-transparent">Message</span>
             </h2>
 
             <div className="card bg-base-100 shadow">
@@ -52,7 +53,7 @@ const ContactForm = () => {
                         ></textarea>
                     </div>
 
-                    <button className="btn btn-primary w-full">
+                    <button className="btn bg-gradient-to-r from-cyan-400 to-cyan-800 text-white w-full">
                         Send Message
                     </button>
 

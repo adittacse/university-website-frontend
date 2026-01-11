@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -17,6 +16,7 @@ import BBA from "@/asset/departments/BBa.jpg";
 import English from "@/asset/departments/English.jpg";
 import Economics from "@/asset/departments/econo.jpg";
 import Math from "@/asset/departments/Math.jpg";
+
 const departments = [
   { name: "CSE", img: CSE },
   { name: "EEE", img: EEE },
@@ -28,12 +28,13 @@ const departments = [
 
 const DepartmentsSection = () => {
   return (
-    <section className="py-20 ">
-      <div className=" px-6">
+    <section className="py-20">
+      <div className="px-6 max-w-11/12 mx-auto ">
 
         {/* Section Title */}
         <h3 className="text-3xl md:text-4xl font-bold text-center mb-14">
-          Our <span className="text-cyan-500">Departments</span>
+          Our <span className="bg-gradient-to-r to-cyan-400 from-cyan-800
+              bg-clip-text text-transparent">Departments</span>
         </h3>
 
         <Swiper
@@ -75,7 +76,7 @@ const DepartmentsSection = () => {
                 />
 
                 {/* Overlay */}
-                <div className="absolute inset-0 bg-black/40"></div>
+                <div className="absolute inset-0 bg-black/40" />
 
                 {/* Content */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white">
@@ -91,50 +92,6 @@ const DepartmentsSection = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-=======
-const DepartmentsSection = () => {
-  const departments = [
-    "CSE",
-    "EEE",
-    "BBA",
-    "English",
-    "Economics",
-    "Mathematics",
-  ];
-
-  return (
-    <section className="py-16 bg-base-200">
-      <div className="max-w-7xl mx-auto px-6">
-
-        {/* Section Title */}
-        <h3 className="text-3xl md:text-4xl font-bold text-center mb-10">
-          Our <span className="text-primary">Departments</span>
-        </h3>
-
-        {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {departments.map((dep) => (
-            <div
-              key={dep}
-              className="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-            >
-              <div className="card-body text-center">
-
-                {/* Department Name */}
-                <h4 className="text-xl font-semibold text-primary mb-1">
-                  {dep}
-                </h4>
-
-                {/* Sub text */}
-                <p className="text-sm text-gray-500">
-                  Department of {dep}
-                </p>
-
-              </div>
-            </div>
-          ))}
-        </div>
->>>>>>> 4fba2396524211f47ea000b97c8da93261a1ffa1
 
       </div>
     </section>

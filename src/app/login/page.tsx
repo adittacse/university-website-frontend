@@ -5,13 +5,10 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import Link from "next/link";
-<<<<<<< HEAD
 import Image from "next/image";
 
 // background image
 import loginBg from "@/asset/Auth/login.jpg";
-=======
->>>>>>> 4fba2396524211f47ea000b97c8da93261a1ffa1
 
 type LoginForm = {
   email: string;
@@ -46,7 +43,6 @@ export default function LoginPage() {
   };
 
   return (
-<<<<<<< HEAD
     <div className="relative min-h-[calc(100vh-302px)] flex items-center justify-center">
 
       {/* Background Image */}
@@ -67,7 +63,7 @@ export default function LoginPage() {
         {/* LEFT TEXT */}
         <div className="hidden md:flex flex-col justify-center text-white">
           <h2 className="text-4xl font-bold mb-4">
-            Welcome Back 
+            Welcome Back
           </h2>
           <p className="text-lg text-white/80 max-w-md">
             Access your university dashboard, notices, and academic
@@ -146,7 +142,7 @@ export default function LoginPage() {
                 Don’t have an account?{" "}
                 <Link
                   href="/register"
-                  className="font-semibold text-cyan-600 hover:underline"
+                  className="font-semibold text-cyan-300 hover:underline"
                 >
                   Register
                 </Link>
@@ -155,52 +151,7 @@ export default function LoginPage() {
             </div>
           </div>
         </div>
-=======
-    <div className="py-22 flex items-center justify-center px-4 ">
-      <div className="card bg-base-100 w-full max-w-sm shadow-xl border border-base-300">
-        <div className="card-body">
 
-          {/* Title */}
-          <h3 className="text-3xl font-bold text-center text-primary mb-1">
-            Login
-          </h3>
-          <p className="text-center text-sm text-gray-500 mb-4">
-            Welcome back! Please login to your account
-          </p>
-
-          {/* Form */}
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <fieldset className="flex flex-col gap-y-4">
-
-              <input
-                type="email"
-                placeholder="Email address"
-                className="input input-bordered w-full focus:border-primary"
-                {...register("email", { required: true })}
-              />
-
-              <input
-                type="password"
-                placeholder="Password"
-                className="input input-bordered w-full focus:border-primary"
-                {...register("password", { required: true })}
-              />
-
-              <button className="btn btn-primary w-full mt-2">
-                Login
-              </button>
-
-            </fieldset>
-          </form>
-          {/* Register link */}
-          <p className="text-center text-sm mt-4">
-            Don’t have an account?{" "}
-            <Link href="/register" className="text-primary font-semibold hover:underline">
-              Register
-            </Link>
-          </p>
-        </div>
->>>>>>> 4fba2396524211f47ea000b97c8da93261a1ffa1
       </div>
     </div>
   );

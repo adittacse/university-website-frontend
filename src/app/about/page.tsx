@@ -1,7 +1,6 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+
 import AboutHeader from "@/components/about/AboutHeader";
 import AboutOverview from "@/components/about/AboutOverview";
 import MissionVision from "@/components/about/MissionVision";
@@ -11,7 +10,7 @@ import WhyChooseUs from "@/components/about/WhyChooseUs";
 const AboutPage = () => {
     return (
         <>
-            {/* <Navbar /> */}
+            
 
             <AboutHeader />
             <AboutOverview />
@@ -19,7 +18,7 @@ const AboutPage = () => {
             <CoreValues />
             <WhyChooseUs />
 
-            {/* <Footer /> */}
+           
         </>
     );
 };
