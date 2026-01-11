@@ -1,49 +1,103 @@
+"use client";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, EffectCoverflow, Pagination } from "swiper/modules";
+import Image from "next/image";
+
+// Swiper styles
+import "swiper/css";
+import "swiper/css/effect-coverflow";
+import "swiper/css/pagination";
+
+// Department images
+import CSE from "@/asset/departments/markus-spiske-1LLh8k2_YFk-unsplash.jpg";
+import EEE from "@/asset/departments/EEE.jpg";
+import BBA from "@/asset/departments/BBa.jpg";
+import English from "@/asset/departments/English.jpg";
+import Economics from "@/asset/departments/econo.jpg";
+import Math from "@/asset/departments/Math.jpg";
+
+const departments = [
+  { name: "CSE", img: CSE },
+  { name: "EEE", img: EEE },
+  { name: "BBA", img: BBA },
+  { name: "English", img: English },
+  { name: "Economics", img: Economics },
+  { name: "Mathematics", img: Math },
+];
+
 const DepartmentsSection = () => {
-    const departments = [
-        "CSE",
-        "EEE",
-        "BBA",
-        "English",
-        "Economics",
-        "Mathematics",
-    ];
+  return (
+    <section className="py-20 bg-base-200">
+      <div className="md:w-11/12 mx-auto px-6">
 
-    return (
-        <section className="py-16 bg-base-200">
-            <div className="max-w-7xl mx-auto px-6">
+        {/* Section Title */}
+        <h3 className="text-3xl md:text-4xl font-bold text-center mb-14">
+          Our{" "}
+          <span className="bg-gradient-to-r from-cyan-800 to-cyan-400 bg-clip-text text-transparent">
+            Departments
+          </span>
+        </h3>
 
-                {/* Section Title */}
-                <h3 className="text-3xl md:text-4xl font-bold text-center mb-10">
-                    Our <span className="text-primary">Departments</span>
-                </h3>
+        <Swiper
+          loop
+          centeredSlides
+          grabCursor
+          effect="coverflow"
+          slidesPerView={3}
+          coverflowEffect={{
+            rotate: 20,
+            stretch: 0,
+            depth: 150,
+            modifier: 1,
+            slideShadows: false,
+          }}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
+          pagination={{ clickable: true }}
+          modules={[EffectCoverflow, Pagination, Autoplay]}
+          className="pb-12"
+          breakpoints={{
+            0: { slidesPerView: 1 },
+            640: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+          }}
+        >
+          {departments.map(dep => (
+            <SwiperSlide key={dep.name}>
+              <div className="relative h-[280px] rounded-2xl overflow-hidden shadow-lg">
 
-                {/* Cards */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                    {departments.map((dep) => (
-                        <div
-                            key={dep}
-                            className="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-                        >
-                            <div className="card-body text-center">
+                {/* Image */}
+                <Image
+                  src={dep.img}
+                  alt={dep.name}
+                  fill
+                  className="object-cover"
+                />
 
-                                {/* Department Name */}
-                                <h4 className="text-xl font-semibold text-primary mb-1">
-                                    {dep}
-                                </h4>
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-black/40" />
 
-                                {/* Sub text */}
-                                <p className="text-sm text-gray-500">
-                                    Department of {dep}
-                                </p>
-
-                            </div>
-                        </div>
-                    ))}
+                {/* Text */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white">
+                  <h4 className="text-2xl font-bold mb-1">
+                    {dep.name}
+                  </h4>
+                  <p className="text-sm text-cyan-200">
+                    Department of {dep.name}
+                  </p>
                 </div>
 
-            </div>
-        </section>
-    );
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+
+      </div>
+    </section>
+  );
 };
 
 export default DepartmentsSection;
