@@ -9,4 +9,10 @@ export type UserRole =
     | "admin"
     | "teacher"
     | "student"
+<<<<<<< HEAD
     | "staff";
+=======
+    | "staff"
+    | "moderator"
+    | "super_admin";
+>>>>>>> ea3e87c (Fix notices module and resolve conflicts)
